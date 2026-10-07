@@ -2,11 +2,12 @@
 const { app } = require('@azure/functions');
 const logic = require('../lib/logic');
 
-function route(name, method, handler) {
-  app.http(name, {
+function route(path, method, handler) {
+  // Function names can't contain "/", so derive one from the route.
+  app.http(path.replace(/\//g, '-'), {
     methods: [method],
     authLevel: 'anonymous',
-    route: name,
+    route: path,
     handler: async (request) => {
       const query = Object.fromEntries(request.query.entries());
       const body = method === 'POST' ? await request.json().catch(() => ({})) : {};
