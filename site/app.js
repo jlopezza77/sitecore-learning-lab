@@ -66,6 +66,26 @@ async function load() {
   await personalize();
 }
 
+// Product detail window. Opening it is the "view_product" event that builds the segment.
+function openDetails(productId) {
+  const p = content.products.find((x) => x.id === productId);
+  const l = content.labels;
+  $('details-title').textContent = p.name;
+  $('details-intro').textContent = p.details.intro;
+  $('details-items').innerHTML = p.details.items
+    .map((i) => `<div class="card"><h4>${i.name}</h4><ul>${i.features.map((f) => `<li>${f}</li>`).join('')}</ul></div>`)
+    .join('');
+  $('details-note').textContent = l.demoNote;
+  $('details-apply').textContent = l.apply;
+  $('details-close').textContent = l.close;
+  $('details-apply').onclick = () => {
+    $('details').close();
+    openForm(productId);
+  };
+  $('details').showModal();
+  track('view_product', productId);
+}
+
 function openForm(product) {
   currentProduct = product;
   track('application_started', product);
@@ -73,7 +93,7 @@ function openForm(product) {
 }
 
 document.addEventListener('click', (e) => {
-  if (e.target.dataset.view) track('view_product', e.target.dataset.view);
+  if (e.target.dataset.view) openDetails(e.target.dataset.view);
   if (e.target.dataset.apply) openForm(e.target.dataset.apply);
 });
 $('hero-cta').onclick = () => (currentProduct ? openForm(currentProduct) : $('products').scrollIntoView({ behavior: 'smooth' }));
@@ -83,6 +103,7 @@ $('submit').onclick = async () => {
   $('reason').textContent = content.labels.thanks;
 };
 $('cancel').onclick = () => $('form').close();
+$('details-close').onclick = () => $('details').close();
 $('market').onchange = (e) => {
   market = e.target.value;
   localStorage.setItem('market', market);

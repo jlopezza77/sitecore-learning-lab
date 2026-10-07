@@ -27,9 +27,92 @@
     }
   },
   "products": [
-    { "id": "card", "name": "Tarjeta de crédito", "description": "Sin anualidad el primer año." },
-    { "id": "loan", "name": "Préstamo personal", "description": "Tasa fija, pagos mensuales." },
-    { "id": "savings", "name": "Cuenta de ahorro", "description": "Rendimiento diario." }
+    {
+      "id": "card",
+      "name": "Tarjeta de crédito",
+      "description": "Sin anualidad el primer año.",
+      "details": {
+        "intro": "Elige la tarjeta que va con tu estilo de vida.",
+        "items": [
+          {
+            "name": "Clásica",
+            "features": [
+              "Sin anualidad el primer año",
+              "Compras a meses sin intereses",
+              "Ideal para iniciar tu historial crediticio"
+            ]
+          },
+          {
+            "name": "Oro",
+            "features": [
+              "0% de interés a 6 meses",
+              "1% de cashback en todas tus compras",
+              "Seguro de compras incluido"
+            ]
+          },
+          {
+            "name": "Platinum",
+            "features": [
+              "Acceso a salas VIP en aeropuertos",
+              "2% de cashback",
+              "Asistencia en viajes internacionales"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "loan",
+      "name": "Préstamo personal",
+      "description": "Tasa fija, pagos mensuales.",
+      "details": {
+        "intro": "Dinero para tus planes, con respuesta inmediata.",
+        "items": [
+          {
+            "name": "Express",
+            "features": [
+              "Hasta $30,000 MXN",
+              "Respuesta en 10 minutos",
+              "Plazo de 6 a 12 meses"
+            ]
+          },
+          {
+            "name": "Plus",
+            "features": [
+              "Hasta $150,000 MXN",
+              "Tasa fija preferencial",
+              "Plazo de hasta 48 meses"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "savings",
+      "name": "Cuenta de ahorro",
+      "description": "Rendimiento diario.",
+      "details": {
+        "intro": "Haz crecer tu dinero sin complicaciones.",
+        "items": [
+          {
+            "name": "Cuenta Básica",
+            "features": [
+              "Sin comisiones",
+              "Tarjeta de débito digital",
+              "Transferencias SPEI gratis"
+            ]
+          },
+          {
+            "name": "Cuenta Plus",
+            "features": [
+              "Rendimiento de 10% anual",
+              "Disponibilidad diaria",
+              "Sin monto mínimo"
+            ]
+          }
+        ]
+      }
+    }
   ],
   "labels": {
     "learnMore": "Ver más",
@@ -39,7 +122,9 @@
     "email": "Correo electrónico",
     "submit": "Enviar solicitud",
     "cancel": "Ahora no",
-    "thanks": "¡Gracias! Recibimos tu solicitud."
+    "thanks": "¡Gracias! Recibimos tu solicitud.",
+    "close": "Cerrar",
+    "demoNote": "Información de demostración: producto ficticio."
   },
   "email": {
     "abandoned": {

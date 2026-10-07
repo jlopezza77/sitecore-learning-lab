@@ -6,7 +6,7 @@ const store = require('./store');
 
 const PRODUCTS = ['card', 'loan', 'savings'];
 const MARKETS = ['es-MX', 'es-CO', 'pt-BR'];
-const SEGMENT_THRESHOLD = 2; // views of a product before we consider the visitor "interested"
+const SEGMENT_THRESHOLD = 1; // views of a product before we consider the visitor "interested"
 const VALUE_PER_CUSTOMER_USD = 150; // assumed first-year value of a new customer, used for the business case
 
 // A/B split: half of eligible visitors get personalization, half stay as a control group.

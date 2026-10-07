@@ -29,6 +29,11 @@ main { max-width: 1000px; margin: 0 auto; padding: 16px; }
 .debug .reason { color: #ffd166; margin-bottom: 8px; }
 .debug button { margin-top: 8px; }
 dialog { border: 0; border-radius: 12px; padding: 20px; width: min(400px, 92vw); }
+dialog.details { width: min(760px, 94vw); }
+dialog.details .grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+dialog.details h4 { margin: 0 0 8px; color: var(--brand); }
+dialog.details ul { margin: 0; padding-left: 18px; font-size: 14px; }
+dialog .actions { display: flex; gap: 8px; flex-wrap: wrap; }
 dialog input { width: 100%; padding: 8px; margin: 4px 0 12px; border: 1px solid var(--border); border-radius: 6px; }
 .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 20px; }
 .kpi .value { font-size: 28px; font-weight: 700; }

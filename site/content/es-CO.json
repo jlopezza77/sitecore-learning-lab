@@ -27,9 +27,92 @@
     }
   },
   "products": [
-    { "id": "card", "name": "Tarjeta de crédito", "description": "Cuota de manejo $0 el primer año." },
-    { "id": "loan", "name": "Crédito de libre inversión", "description": "Tasa fija, cuotas mensuales." },
-    { "id": "savings", "name": "Cuenta de ahorros", "description": "Rendimiento diario." }
+    {
+      "id": "card",
+      "name": "Tarjeta de crédito",
+      "description": "Cuota de manejo $0 el primer año.",
+      "details": {
+        "intro": "Elige la tarjeta que va con tu estilo de vida.",
+        "items": [
+          {
+            "name": "Clásica",
+            "features": [
+              "Cuota de manejo $0 el primer año",
+              "Compras a cuotas",
+              "Ideal para empezar tu vida crediticia"
+            ]
+          },
+          {
+            "name": "Oro",
+            "features": [
+              "Cuota de manejo $0 el primer año",
+              "1% de cashback en todas tus compras",
+              "Seguro de compras incluido"
+            ]
+          },
+          {
+            "name": "Platinum",
+            "features": [
+              "Acceso a salas VIP en aeropuertos",
+              "2% de cashback",
+              "Asistencia en viajes internacionales"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "loan",
+      "name": "Crédito de libre inversión",
+      "description": "Tasa fija, cuotas mensuales.",
+      "details": {
+        "intro": "Plata para tus planes, con respuesta inmediata.",
+        "items": [
+          {
+            "name": "Express",
+            "features": [
+              "Hasta $5.000.000 COP",
+              "Aprobación en 10 minutos",
+              "Plazo de 6 a 12 meses"
+            ]
+          },
+          {
+            "name": "Plus",
+            "features": [
+              "Hasta $30.000.000 COP",
+              "Tasa fija preferencial",
+              "Plazo de hasta 60 meses"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "savings",
+      "name": "Cuenta de ahorros",
+      "description": "Rendimiento diario.",
+      "details": {
+        "intro": "Haz crecer tu plata sin complicaciones.",
+        "items": [
+          {
+            "name": "Cuenta Básica",
+            "features": [
+              "Sin cuota de manejo",
+              "Tarjeta débito digital",
+              "Transferencias gratis"
+            ]
+          },
+          {
+            "name": "Cuenta Plus",
+            "features": [
+              "Rentabilidad de 9% E.A.",
+              "Liquidez diaria",
+              "Sin monto mínimo"
+            ]
+          }
+        ]
+      }
+    }
   ],
   "labels": {
     "learnMore": "Ver más",
@@ -39,7 +122,9 @@
     "email": "Correo electrónico",
     "submit": "Enviar solicitud",
     "cancel": "Ahora no",
-    "thanks": "¡Gracias! Recibimos tu solicitud."
+    "thanks": "¡Gracias! Recibimos tu solicitud.",
+    "close": "Cerrar",
+    "demoNote": "Información de demostración: producto ficticio."
   },
   "email": {
     "abandoned": {

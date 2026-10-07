@@ -40,7 +40,7 @@ Dashboard ── POST /api/journeys/abandoned ─► email Level 6  Cross-channe
 
 1. **The business problem (1 min)**: a LATAM digital bank shows the same generic page to everyone in three countries, and people who start applications and abandon them are lost.
 2. **Localized content (1 min)**: switch MX → CO → BR. It's one content model, so marketing localizes without developers.
-3. **Real-time personalization (3 min)**: click "Ver más" on the credit card twice. The hero changes to the card offer. Open "Behind the scenes" to see the profile, segment and the decision reason.
+3. **Real-time personalization (3 min)**: click "Ver más" on the credit card: a detail window shows the card types, and the hero changes to the card offer. Open "Behind the scenes" to see the profile, segment and the decision reason.
 4. **Cross-channel (2 min)**: start an application and cancel it. On the dashboard, run the email journey. Back on the site, open the email link; the visitor returns with `?src=email` and converts, attributed to email.
 5. **Business value (3 min)**: simulate traffic. Show the conversion lift of personalized vs control, the extra customers and the estimated $ value, plus the email recovery rate. Tie it to the public stories: HSBC +45% leads, Aer Lingus +1,675% conversions.
 
