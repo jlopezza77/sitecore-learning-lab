@@ -41,13 +41,18 @@ function computeSegment(interests) {
 }
 
 // CDP: collect a behavioral event and update the unified profile.
-async function track({ visitorId, market, type, product, source }) {
+async function track({ visitorId, market, type, product, source, group }) {
   if (!visitorId || !type) return { status: 400, body: { error: 'visitorId and type are required' } };
   const profile = (await store.getProfile(visitorId)) || newProfile(visitorId, market);
   if (market && MARKETS.includes(market)) profile.market = market;
   profile.lastSeen = new Date().toISOString();
 
   if (type === 'view_product' && PRODUCTS.includes(product)) profile.interests[product] += 1;
+  // Demo override: lets a presenter pick the A/B group. Forced visitors are excluded from experiment stats.
+  if (type === 'demo_set_group' && ['personalized', 'control'].includes(group)) {
+    profile.group = group;
+    profile.groupForced = true;
+  }
   if (type === 'application_started') profile.applicationStarted = product || profile.segment;
   if (type === 'application_submitted' && !profile.converted) {
     profile.converted = true;
@@ -97,7 +102,7 @@ async function runAbandonmentJourney() {
 async function stats() {
   const profiles = await store.allProfiles();
   const rate = (list) => (list.length ? list.filter((p) => p.converted && p.convertedVia === 'web').length / list.length : 0);
-  const eligible = profiles.filter((p) => p.segment);
+  const eligible = profiles.filter((p) => p.segment && !p.groupForced);
   const pers = eligible.filter((p) => p.group === 'personalized');
   const ctrl = eligible.filter((p) => p.group === 'control');
   const persRate = rate(pers);

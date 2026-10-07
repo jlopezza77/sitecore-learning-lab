@@ -16,11 +16,13 @@ let market = params.get('market') || localStorage.getItem('market') || 'es-MX';
 let content;
 let currentProduct = null;
 
-async function track(type, product) {
+let currentGroup = null;
+
+async function track(type, product, extra = {}) {
   await fetch('/api/track', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ visitorId, market, type, product, source }),
+    body: JSON.stringify({ visitorId, market, type, product, source, ...extra }),
   });
   await personalize();
 }
@@ -36,8 +38,9 @@ async function personalize() {
   currentProduct = experience === 'default' ? null : experience;
 
   $('reason').textContent = `Decision: ${reason}`;
-  const { id, group, segment, interests, applicationStarted, converted, convertedVia, outbox } = profile;
-  $('profile').textContent = JSON.stringify({ visitorId: id, group, segment, interests, applicationStarted, converted, convertedVia, outbox }, null, 2);
+  const { id, group, groupForced, segment, interests, applicationStarted, converted, convertedVia, outbox } = profile;
+  currentGroup = group;
+  $('profile').textContent = JSON.stringify({ visitorId: id, group, groupForced: !!groupForced, segment, interests, applicationStarted, converted, convertedVia, outbox }, null, 2);
   $('open-email').hidden = !(outbox && outbox.length) || converted;
 }
 
@@ -110,6 +113,8 @@ $('market').onchange = (e) => {
   load();
 };
 $('open-email').onclick = () => (location.href = `/?src=email&market=${market}`);
+$('switch-group').onclick = () =>
+  track('demo_set_group', null, { group: currentGroup === 'personalized' ? 'control' : 'personalized' });
 $('new-visitor').onclick = () => {
   localStorage.removeItem('visitorId');
   location.href = '/';
