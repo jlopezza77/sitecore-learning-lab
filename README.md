@@ -80,6 +80,32 @@ The demo shows how a company wins more customers with the same traffic and the s
 - **What Sitecore does:** built-in experiments with a control group.
 - **Value:** impact is measured, not assumed, and it justifies the investment to the CFO. This is key in a value-based sale.
 
+#### How it works in the demo
+Each new visitor is randomly assigned to one of two groups on arrival, and stays in that group for good:
+
+| Group | If interested in cards... | Purpose |
+|---|---|---|
+| **personalized** (50%) | Sees the card offer | Measures how well the personalized experience converts |
+| **control** (50%) | Keeps seeing the generic banner **on purpose** | Measures how well they would have converted without personalization |
+
+The system does know the control visitor is interested in cards: their segment becomes `card`. It simply chooses not to show the offer. The Decision line says so: *"Segment card but A/B group control: showing generic hero so we can measure lift"*.
+
+**Why the group doesn't change with clicks:** if it did, the comparison would be biased. Both groups must be identical except for personalization, so any difference in conversion is caused by it and nothing else.
+
+**Example** with 100 card-interested visitors in each group:
+- Personalized: 14 apply for the card → 14%
+- Control: 7 apply for the card → 7%
+- Lift: (14 − 7) / 7 = **+100%**. Personalization doubled conversion.
+
+Without the control group you'd only have the 14%, with no way to tell whether that's good or bad, or whether those people would have bought anyway.
+
+**In Sitecore:** Sitecore Personalize does the same with its A/B experiments: you set what share of traffic sees each variant, including the control, and the report shows which one wins and with what statistical confidence.
+
+**In the live demo:** the **"Cambiar grupo A/B (demo)"** button lets you show both groups. Those visitors are flagged `groupForced: true` and excluded from the dashboard metrics, so the experiment stays clean.
+
+**For the interview:**
+> "I don't show the offer to everyone who's interested. I keep a control group on the generic experience, because without it I can't prove to the customer that personalization caused the lift in sales. That's what turns a feature demo into a business case."
+
 ### 5. Cross-channel (abandoned application email)
 - **Problem:** at a bank, many people start a card or loan application and never finish it. That customer is lost.
 - **What Sitecore does:** the web channel and email share the same profile, so the message knows which product was left unfinished and which language to use.
@@ -142,6 +168,32 @@ La demo muestra cómo una empresa gana más clientes con el mismo tráfico y el 
 - **Problema:** marketing dice "la personalización funciona" y finanzas pregunta "¿cómo lo sabes?".
 - **Qué hace Sitecore:** experimentos con grupo de control integrados.
 - **Valor:** el impacto se mide, no se supone, y justifica la inversión ante el CFO. Es clave en una venta con enfoque en valor.
+
+#### Cómo funciona en la demo
+Al llegar, cada visitante nuevo queda asignado al azar a uno de dos grupos, y se queda en ese grupo para siempre:
+
+| Grupo | Si le interesan las tarjetas... | Para qué sirve |
+|---|---|---|
+| **personalized** (50%) | Ve la oferta de tarjeta | Mide cuánto convierte la experiencia personalizada |
+| **control** (50%) | Sigue viendo el banner genérico **a propósito** | Mide cuánto habría convertido sin personalización |
+
+El sistema sí sabe que al visitante de control le interesan las tarjetas: su segmento cambia a `card`. Solo decide no mostrarle la oferta. La línea Decision lo dice: *"Segment card but A/B group control: showing generic hero so we can measure lift"*.
+
+**Por qué el grupo no cambia con los clics:** si cambiara, la comparación quedaría sesgada. Los dos grupos deben ser iguales en todo menos en la personalización. Así, cualquier diferencia en conversión se debe a ella y no a otra causa.
+
+**Ejemplo** con 100 visitantes interesados en tarjetas en cada grupo:
+- Personalized: 14 solicitan la tarjeta → 14%
+- Control: 7 solicitan la tarjeta → 7%
+- Lift: (14 − 7) / 7 = **+100%**. La personalización duplicó la conversión.
+
+Sin el grupo de control solo tendrías el 14%, y no sabrías si es bueno o malo, ni si esas personas igual habrían comprado.
+
+**En Sitecore:** Sitecore Personalize hace lo mismo con sus experimentos A/B: define qué porcentaje del tráfico ve cada variante, incluido el grupo de control, y el reporte muestra cuál gana y con qué confianza estadística.
+
+**En la demo en vivo:** el botón **"Cambiar grupo A/B (demo)"** permite mostrar los dos grupos. Esos visitantes quedan marcados con `groupForced: true` y fuera de las métricas del dashboard, para que el experimento siga limpio.
+
+**Para la entrevista:**
+> "No le muestro la oferta a todos los interesados. Mantengo un grupo de control con la experiencia genérica, porque sin él no puedo demostrar al cliente que la personalización causó el aumento de ventas. Eso es lo que convierte una demo de funcionalidades en un caso de negocio."
 
 ### 5. Cross-channel (email de solicitud abandonada)
 - **Problema:** en un banco, mucha gente empieza una solicitud de tarjeta o préstamo y no la termina. Ese cliente se pierde.
