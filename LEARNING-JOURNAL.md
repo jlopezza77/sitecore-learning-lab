@@ -19,9 +19,10 @@ Goal: understand cross-channel digital marketing hands-on, the way SitecoreAI de
 - Personalization without a control group is an opinion, not a result.
 - Cross-channel = the email knows what happened on the web (same profile).
 - Same content model, different market → localization is content, not code.
+- Azure Functions names cannot contain "/" — a route can, so name and route must be set separately (found in the cloud, not locally: test where you deploy).
 
 **Next**
-- [ ] Deploy to Azure Static Web Apps + Cosmos DB free tier
+- [x] Deployed to Azure Static Web Apps + Cosmos DB free tier (Cloud Shell + GitHub Actions): https://proud-mud-0dc4d820f.2.azurestaticapps.net
 - [ ] Sitecore Learning portal: SitecoreAI fundamentals course
 - [ ] Replace simulated outbox with Azure Communication Services email
 - [ ] Add Azure OpenAI to generate localized offer copy (≈ Sitecore Stream / Agentic Studio)
