@@ -46,7 +46,72 @@ Dashboard ── POST /api/journeys/abandoned ─► email Level 6  Cross-channe
 
 > Simulated traffic uses assumed rates for learning purposes; it is not a benchmark.
 
+## Why it matters: the business value of each part of the demo
+
+*Versión en español más abajo: [Por qué es valioso](#por-qué-es-valioso-el-valor-de-negocio-de-cada-parte-de-la-demo).*
+
+The demo shows how a company wins more customers with the same traffic and the same marketing budget. The technology is the means; the outcome is the argument.
+
+### 1. Localized content (switching between MX, CO and BR)
+- **Problem:** a bank in 3 countries usually runs 3 separate sites, or depends on IT for every change. Launching a campaign takes weeks.
+- **What Sitecore does:** one content model with versions per language and market. Marketing publishes without developers.
+- **Value:**
+  - **Faster time to market.** A new campaign (for example, the Gold card) is built once as a structure, and each country only translates and adapts the copy. No need to coordinate 3 development projects or wait for IT. In the demo, adding a country means adding one content file, with no code changes.
+  - **Lower cost of duplicate sites.** Every separate site carries its own hosting, licenses, security patches, testing and team. Once unified, that cost is paid once and components are reused across countries and brands.
+  - **The offer adapts to each country.** It's not just translation: each market has its own product, regulation and financial language. In the demo, the card highlights "cuota de manejo $0" (no handling fee) in Colombia, "0% interest for 6 months" in Mexico and "anuidade zero" (no annual fee) in Brazil; the savings account talks about "% E.A." (effective annual rate) in Colombia and "% do CDI" (Brazil's benchmark rate) and Pix in Brazil. Amounts and currencies change too (MXN, COP, BRL).
+- **Real cases (sitecore.com):**
+  - **HSBC Commercial Banking** launched a new proposition in **50 markets** with Sitecore: **+45% leads in Canada**, +15% in Australia, and users were 5x more likely to express interest in contacting the bank.
+  - **Canadian Western Bank** unified **10 brand websites** on one platform: **+50% lead generation opportunities**, **70% productivity gain**, 25% more content reuse, and went from 1 to 17 people publishing without relying on IT.
+
+### 2. Real-time profile (the "Behind the scenes" panel)
+- **Problem:** most visitors are anonymous, and the bank doesn't know what they're looking for until they fill in a form, if they ever do.
+- **What Sitecore does (CDP):** every click builds a profile from the first visit, even while the visitor is anonymous.
+- **Value:** the bank understands customer intent before they ever talk to an advisor. This is **first-party data**: collected by the bank on its own site, with the customer's consent. That matters for two reasons:
+  - **Privacy laws in LATAM.** Brazil has the **LGPD** (in force since 2020, enforced by the ANPD). Mexico published a **new Federal Law on the Protection of Personal Data Held by Private Parties** on March 20, 2025; the former INAI's functions moved to the Secretariat of Anti-Corruption and Good Governance. Colombia has **Law 1581 of 2012**, enforced by the SIC. All of them require knowing what data you hold, why, and under what consent. A platform that centralizes the profile and consent makes compliance easier; data scattered across third-party tools makes it harder.
+  - **Less dependence on third-party data.** Safari and Firefox already block third-party cookies by default. Google, however, **decided to keep them in Chrome** (April 2025) after years of announcing their removal. Still, the trend is clear: browsers, ad blockers and regulation keep reducing what you can learn about customers from other people's data. First-party data, collected with consent, is the asset that doesn't depend on decisions made by Google or Apple.
+
+### 3. Personalization (the banner switches to the card offer)
+- **Problem:** showing everyone the same thing wastes traffic that was already paid for with advertising.
+- **What Sitecore does (Personalize):** shows the offer relevant to the segment, in the moment.
+- **Value:** more conversions from the same traffic, without spending more on ads. Public cases on sitecore.com: HSBC saw **+45% leads** in Canada and Aer Lingus **+1,675% conversions**.
+
+### 4. Control group (A/B)
+- **Problem:** marketing says "personalization works" and finance asks "how do you know?".
+- **What Sitecore does:** built-in experiments with a control group.
+- **Value:** impact is measured, not assumed, and it justifies the investment to the CFO. This is key in a value-based sale.
+
+### 5. Cross-channel (abandoned application email)
+- **Problem:** at a bank, many people start a card or loan application and never finish it. That customer is lost.
+- **What Sitecore does:** the web channel and email share the same profile, so the message knows which product was left unfinished and which language to use.
+- **Value:** recovering revenue that was almost won. Sephora, using Moosend (now **Sitecore Send**), moved from mass campaigns to behavior-segmented emails: open rates rose from **17% to 40%**, online sales grew **+5%**, and automated emails reduced cart abandonment. In LATAM, the natural next step is WhatsApp.
+
+### 6. Dashboard (lift, extra customers, estimated $)
+- **Problem:** executives don't buy "a CDP"; they buy growth.
+- **Value:** it translates technology into business language: "X more customers, worth $Y".
+
+### How this relates to the Channel Solutions Engineer role
+A Channel SE teaches partners (such as TEAMCX) to sell and demonstrate Sitecore. This demo shows three of the role's requirements:
+- **"Demonstrating software using a value-based approach":** it starts with the problem and ends with money, not features.
+- **"Understanding of cross-channel digital marketing":** it connects content, data, personalization and channels.
+- **"Ability to absorb large amounts of information quickly":** learned and built independently, on Azure, the same cloud TEAMCX uses to sell Sitecore.
+
+**Closing line:**
+> "Sitecore doesn't sell a CMS; it sells the ability to convert more of the traffic you already have, measure it and prove it. My job as a Channel SE would be to make sure every partner in LATAM can tell this story with their own customer's numbers."
+
+### Sources and a note on LATAM
+I found no public Sitecore success stories with named LATAM customers and metrics (searched in English, Spanish and Portuguese, October 2026). That's why the demo uses a fictional bank and verified global cases. A good interview question: *"What LATAM customer references do TEAMCX or Sitecore have that I could use with partners?"*
+
+- [HSBC Commercial Banking (sitecore.com)](https://www.sitecore.com/solutions/customers/hsbc/hsbc-cmb-best-digital-experience-transformation-2021)
+- [Canadian Western Bank (sitecore.com)](https://www.sitecore.com/solutions/customers/canadianwesternbank/canadianwesternbank-drives-50-percent-more-conversions-and-70-percent-productivity-gain)
+- [Sephora with Moosend / Sitecore Send (sitecore.com)](https://www.sitecore.com/solutions/customers/sephora/sephora-boosts-website-traffic-and-sales-with-moosend)
+- [Aer Lingus (sitecore.com)](https://www.sitecore.com/solutions/customers/aer-lingus/aer-lingus-improved-conversions-by-1675-percent-with-sitecore)
+- [Google keeps third-party cookies in Chrome (eMarketer)](https://www.emarketer.com/content/google-backs-off-third-party-cookie-ban-amid-regulatory-pressure)
+- [Mexico's new personal data law, 2025 (Garrigues, in Spanish)](https://www.garrigues.com/es_ES/noticia/mexico-nueva-ley-federal-proteccion-datos-personales-posesion-particulares-introduce)
+- [TEAMCX: TEAM International and Sitecore in LATAM](https://www.teaminternational.com/de/blog/team-international-sitecore-partnership-teamcx-latam)
+
 ## Por qué es valioso: el valor de negocio de cada parte de la demo
+
+*English version above: [Why it matters](#why-it-matters-the-business-value-of-each-part-of-the-demo).*
 
 La demo muestra cómo una empresa gana más clientes con el mismo tráfico y el mismo presupuesto de marketing. La tecnología es el medio; el resultado es el argumento.
 
