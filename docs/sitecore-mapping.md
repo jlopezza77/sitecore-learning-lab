@@ -16,14 +16,15 @@
 - **CDP vs CRM**: CRM stores known customers and sales interactions; a CDP collects behavior from anonymous + known visitors and unifies it into one real-time profile used for activation.
 - **Composable / MACH**: Microservices, API-first, Cloud-native, Headless – pick best-of-breed pieces connected by APIs. SitecoreAI unifies the composable pieces in one platform.
 - **Control group / lift**: without a control group you cannot prove personalization caused the improvement. Lift = (personalized rate − control rate) / control rate.
-- **First-party data & consent**: data the brand collects directly with consent – key under LGPD (Brazil), Ley Federal de Protección de Datos (México), Ley 1581 (Colombia).
+- **First-party data & consent**: data the brand collects directly with consent – key under LGPD (Brazil), the new LFPDPPP of March 2025 (México), Ley 1581 de 2012 (Colombia). Note: Chrome kept third-party cookies (Apr 2025); Safari and Firefox block them by default.
 
 ## Public success stories I use as reference
 
-- HSBC Commercial Banking – +45% leads (Canada), +15% (Australia)
+- HSBC Commercial Banking – new proposition in 50 markets: +45% leads (Canada), +15% (Australia)
 - Emirates NBD – hyper-personalized offers, Sitecore on Microsoft Azure
 - Aer Lingus – +1,675% conversions through personalization
 - Low-cost airline – 10M visitors in one day, +$400K sales from personalization
-- Sephora – email open rate 17% → 40%
+- Sephora (Moosend, now Sitecore Send) – email open rate 17% → 40%, online sales +5%
+- Canadian Western Bank – unified 10 brand sites: +50% lead opportunities, 70% productivity gain
 
 LATAM context: TEAM International is the exclusive Sitecore reseller for Colombia, Mexico, Brazil and Argentina (TEAMCX, Platinum Partner since July 2026), Azure-native and MACC-eligible; financial services is a priority sector.
