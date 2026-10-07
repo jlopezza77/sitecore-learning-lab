@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Marketing Value Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <strong>Banco Pacífico Digital · Marketing value dashboard</strong>
+    <a href="/">← Website</a>
+  </header>
+  <main>
+    <div class="toolbar">
+      <button class="btn primary" id="sim">Simulate 200 visitors</button>
+      <button class="btn primary" id="journey">Run abandoned-application email journey</button>
+      <button class="btn" id="refresh">Refresh</button>
+      <button class="btn" id="reset">Reset data</button>
+    </div>
+    <p class="note" id="meta"></p>
+
+    <h2>1. Personalization: does it pay off?</h2>
+    <div class="kpis" id="kpis-pers"></div>
+    <div class="card" id="ab"></div>
+
+    <h2>2. Cross-channel: email recovers abandoned applications</h2>
+    <div class="kpis" id="kpis-email"></div>
+
+    <h2>3. Audience</h2>
+    <div class="grid">
+      <div class="card"><h3>By market</h3><table id="markets"></table></div>
+      <div class="card"><h3>By segment (interest)</h3><table id="segments"></table></div>
+    </div>
+
+    <h2>4. Email outbox (last 10)</h2>
+    <div class="card"><table id="outbox"></table></div>
+  </main>
+  <script src="dashboard.js"></script>
+</body>
+</html>

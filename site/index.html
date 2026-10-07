@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Banco Pacífico Digital</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <strong id="brand">Banco Pacífico Digital</strong>
+    <div>
+      <select id="market" aria-label="Market">
+        <option value="es-MX">🇲🇽 México</option>
+        <option value="es-CO">🇨🇴 Colombia</option>
+        <option value="pt-BR">🇧🇷 Brasil</option>
+      </select>
+      <a href="dashboard.html">Dashboard</a>
+    </div>
+  </header>
+
+  <main>
+    <section id="hero" class="hero">
+      <h1 id="hero-title"></h1>
+      <p id="hero-subtitle"></p>
+      <button id="hero-cta" class="btn"></button>
+    </section>
+
+    <section id="products" class="grid"></section>
+
+    <section class="debug">
+      <h2>Behind the scenes (what SitecoreAI would do)</h2>
+      <div id="reason" class="reason"></div>
+      <pre id="profile"></pre>
+      <button id="open-email" class="btn" hidden>📧 Open the email we sent you (returns with ?src=email)</button>
+      <button id="new-visitor" class="btn">Start as a new visitor</button>
+    </section>
+  </main>
+
+  <dialog id="form">
+    <h3 id="form-title"></h3>
+    <label><span id="label-name"></span><input id="f-name"></label>
+    <label><span id="label-email"></span><input id="f-email" type="email"></label>
+    <div class="actions">
+      <button id="submit" class="btn primary"></button>
+      <button id="cancel" class="btn"></button>
+    </div>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>

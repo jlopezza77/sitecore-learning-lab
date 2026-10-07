@@ -1,0 +1,50 @@
+{
+  "market": "pt-BR",
+  "country": "Brasil",
+  "brand": "Banco Pacífico Digital",
+  "hero": {
+    "default": {
+      "title": "Seu banco, 100% digital",
+      "subtitle": "Abra sua conta em minutos pelo celular. Sem filas, sem burocracia.",
+      "cta": "Conheça nossos produtos"
+    }
+  },
+  "offers": {
+    "card": {
+      "title": "Cartão Pacífico Ouro: anuidade zero para sempre",
+      "subtitle": "Vimos que você se interessa pelos nossos cartões. Esta oferta é para você.",
+      "cta": "Pedir meu cartão"
+    },
+    "loan": {
+      "title": "Empréstimo pessoal aprovado em 10 minutos",
+      "subtitle": "Até R$ 50.000 com taxa preferencial.",
+      "cta": "Pedir meu empréstimo"
+    },
+    "savings": {
+      "title": "Seu dinheiro rende 110% do CDI",
+      "subtitle": "Conta com rendimento diário e Pix ilimitado.",
+      "cta": "Abrir minha conta"
+    }
+  },
+  "products": [
+    { "id": "card", "name": "Cartão de crédito", "description": "Anuidade zero." },
+    { "id": "loan", "name": "Empréstimo pessoal", "description": "Taxa fixa, parcelas mensais." },
+    { "id": "savings", "name": "Conta digital", "description": "Rendimento diário." }
+  ],
+  "labels": {
+    "learnMore": "Saiba mais",
+    "apply": "Solicitar",
+    "formTitle": "Solicitação",
+    "name": "Nome",
+    "email": "E-mail",
+    "submit": "Enviar solicitação",
+    "cancel": "Agora não",
+    "thanks": "Obrigado! Recebemos sua solicitação."
+  },
+  "email": {
+    "abandoned": {
+      "subject": "Sua solicitação está esperando",
+      "body": "Olá, notamos que você não terminou sua solicitação. Retome em 2 minutos e aproveite sua oferta."
+    }
+  }
+}

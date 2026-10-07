@@ -1,0 +1,50 @@
+{
+  "market": "es-CO",
+  "country": "Colombia",
+  "brand": "Banco Pacífico Digital",
+  "hero": {
+    "default": {
+      "title": "Tu banco, 100% digital",
+      "subtitle": "Abre tu cuenta en minutos desde el celular. Sin filas ni trámites.",
+      "cta": "Conoce nuestros productos"
+    }
+  },
+  "offers": {
+    "card": {
+      "title": "Tarjeta Pacífico Oro: cuota de manejo $0 el primer año",
+      "subtitle": "Vimos que te interesan nuestras tarjetas. Esta oferta es para ti.",
+      "cta": "Solicitar mi tarjeta"
+    },
+    "loan": {
+      "title": "Crédito de libre inversión aprobado en 10 minutos",
+      "subtitle": "Hasta $30.000.000 COP con tasa preferencial.",
+      "cta": "Solicitar mi crédito"
+    },
+    "savings": {
+      "title": "Tu plata crece 9% E.A.",
+      "subtitle": "Cuenta de ahorros con rendimiento diario y sin cuota de manejo.",
+      "cta": "Abrir mi cuenta"
+    }
+  },
+  "products": [
+    { "id": "card", "name": "Tarjeta de crédito", "description": "Cuota de manejo $0 el primer año." },
+    { "id": "loan", "name": "Crédito de libre inversión", "description": "Tasa fija, cuotas mensuales." },
+    { "id": "savings", "name": "Cuenta de ahorros", "description": "Rendimiento diario." }
+  ],
+  "labels": {
+    "learnMore": "Ver más",
+    "apply": "Solicitar",
+    "formTitle": "Solicitud",
+    "name": "Nombre",
+    "email": "Correo electrónico",
+    "submit": "Enviar solicitud",
+    "cancel": "Ahora no",
+    "thanks": "¡Gracias! Recibimos tu solicitud."
+  },
+  "email": {
+    "abandoned": {
+      "subject": "Tu solicitud te está esperando",
+      "body": "Hola, vimos que no terminaste tu solicitud. Retómala en 2 minutos y aprovecha tu oferta."
+    }
+  }
+}

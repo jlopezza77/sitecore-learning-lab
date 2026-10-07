@@ -1,0 +1,97 @@
+// Front end of the lab. Three ideas to notice:
+// 1. Content lives in content/<market>.json, separate from the page (headless CMS).
+// 2. Every interaction is sent to /api/track (CDP event collection).
+// 3. The hero is chosen by /api/decide (personalization).
+
+const $ = (id) => document.getElementById(id);
+const params = new URLSearchParams(location.search);
+const source = params.get('src') || 'web';
+
+let visitorId = localStorage.getItem('visitorId');
+if (!visitorId) {
+  visitorId = crypto.randomUUID();
+  localStorage.setItem('visitorId', visitorId);
+}
+let market = params.get('market') || localStorage.getItem('market') || 'es-MX';
+let content;
+let currentProduct = null;
+
+async function track(type, product) {
+  await fetch('/api/track', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ visitorId, market, type, product, source }),
+  });
+  await personalize();
+}
+
+async function personalize() {
+  const res = await fetch(`/api/decide?visitorId=${visitorId}&market=${market}`);
+  const { experience, reason, profile } = await res.json();
+  const hero = experience === 'default' ? content.hero.default : content.offers[experience];
+  $('hero-title').textContent = hero.title;
+  $('hero-subtitle').textContent = hero.subtitle;
+  $('hero-cta').textContent = hero.cta;
+  $('hero').classList.toggle('personalized', experience !== 'default');
+  currentProduct = experience === 'default' ? null : experience;
+
+  $('reason').textContent = `Decision: ${reason}`;
+  const { id, group, segment, interests, applicationStarted, converted, convertedVia, outbox } = profile;
+  $('profile').textContent = JSON.stringify({ visitorId: id, group, segment, interests, applicationStarted, converted, convertedVia, outbox }, null, 2);
+  $('open-email').hidden = !(outbox && outbox.length) || converted;
+}
+
+async function load() {
+  $('market').value = market;
+  content = await (await fetch(`content/${market}.json`)).json();
+  document.documentElement.lang = market;
+  const l = content.labels;
+  $('form-title').textContent = l.formTitle;
+  $('label-name').textContent = l.name;
+  $('label-email').textContent = l.email;
+  $('submit').textContent = l.submit;
+  $('cancel').textContent = l.cancel;
+
+  $('products').innerHTML = content.products
+    .map((p) => `
+      <article class="card">
+        <h3>${p.name}</h3>
+        <p>${p.description}</p>
+        <div class="actions">
+          <button class="btn primary" data-view="${p.id}">${l.learnMore}</button>
+          <button class="btn" data-apply="${p.id}">${l.apply}</button>
+        </div>
+      </article>`)
+    .join('');
+  await personalize();
+}
+
+function openForm(product) {
+  currentProduct = product;
+  track('application_started', product);
+  $('form').showModal();
+}
+
+document.addEventListener('click', (e) => {
+  if (e.target.dataset.view) track('view_product', e.target.dataset.view);
+  if (e.target.dataset.apply) openForm(e.target.dataset.apply);
+});
+$('hero-cta').onclick = () => (currentProduct ? openForm(currentProduct) : $('products').scrollIntoView({ behavior: 'smooth' }));
+$('submit').onclick = async () => {
+  $('form').close();
+  await track('application_submitted', currentProduct);
+  $('reason').textContent = content.labels.thanks;
+};
+$('cancel').onclick = () => $('form').close();
+$('market').onchange = (e) => {
+  market = e.target.value;
+  localStorage.setItem('market', market);
+  load();
+};
+$('open-email').onclick = () => (location.href = `/?src=email&market=${market}`);
+$('new-visitor').onclick = () => {
+  localStorage.removeItem('visitorId');
+  location.href = '/';
+};
+
+load();

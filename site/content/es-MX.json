@@ -1,0 +1,50 @@
+{
+  "market": "es-MX",
+  "country": "México",
+  "brand": "Banco Pacífico Digital",
+  "hero": {
+    "default": {
+      "title": "Tu banco, 100% digital",
+      "subtitle": "Abre tu cuenta en minutos desde tu celular. Sin filas, sin papeleo.",
+      "cta": "Conoce nuestros productos"
+    }
+  },
+  "offers": {
+    "card": {
+      "title": "Tarjeta Pacífico Oro: 0% de interés a 6 meses",
+      "subtitle": "Vimos que te interesan nuestras tarjetas. Esta oferta es para ti.",
+      "cta": "Solicitar mi tarjeta"
+    },
+    "loan": {
+      "title": "Préstamo personal con respuesta en 10 minutos",
+      "subtitle": "Hasta $150,000 MXN con tasa preferencial.",
+      "cta": "Solicitar mi préstamo"
+    },
+    "savings": {
+      "title": "Tu dinero crece 10% anual",
+      "subtitle": "Cuenta de ahorro con rendimiento diario y sin comisiones.",
+      "cta": "Abrir mi cuenta"
+    }
+  },
+  "products": [
+    { "id": "card", "name": "Tarjeta de crédito", "description": "Sin anualidad el primer año." },
+    { "id": "loan", "name": "Préstamo personal", "description": "Tasa fija, pagos mensuales." },
+    { "id": "savings", "name": "Cuenta de ahorro", "description": "Rendimiento diario." }
+  ],
+  "labels": {
+    "learnMore": "Ver más",
+    "apply": "Solicitar",
+    "formTitle": "Solicitud",
+    "name": "Nombre",
+    "email": "Correo electrónico",
+    "submit": "Enviar solicitud",
+    "cancel": "Ahora no",
+    "thanks": "¡Gracias! Recibimos tu solicitud."
+  },
+  "email": {
+    "abandoned": {
+      "subject": "Tu solicitud te espera",
+      "body": "Hola, notamos que no terminaste tu solicitud. Retómala en 2 minutos y aprovecha tu oferta."
+    }
+  }
+}
