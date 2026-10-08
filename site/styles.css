@@ -23,11 +23,25 @@ main { max-width: 1000px; margin: 0 auto; padding: 16px; }
 .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
 .card h3 { margin-top: 0; }
 .card .actions { display: flex; gap: 8px; flex-wrap: wrap; }
-.debug { margin-top: 24px; background: #111827; color: #d1fae5; border-radius: 12px; padding: 16px; font-family: ui-monospace, Menlo, monospace; font-size: 13px; }
-.debug h2 { color: #fff; font-size: 15px; margin-top: 0; }
+.status { background: #e6f4ea; color: var(--good); border-radius: 8px; padding: 10px 14px; font-weight: 600; }
+.trust { margin-top: 24px; background: var(--card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+.trust img { display: block; width: 100%; height: auto; aspect-ratio: 10 / 3; object-fit: cover; }
+.trust-body { padding: 16px 20px 20px; }
+.trust-body h2 { margin: 0 0 8px; color: var(--brand); }
+.badges { list-style: none; padding: 0; margin: 12px 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.badges li { background: #e8f4fa; color: var(--brand); border-radius: 999px; padding: 6px 12px; font-size: 13px; font-weight: 600; }
+.badges li::before { content: "✓ "; }
+.debug { margin-top: 24px; background: #111827; color: #d1fae5; border-radius: 12px; font-family: ui-monospace, Menlo, monospace; font-size: 13px; }
+.debug summary { cursor: pointer; list-style: none; padding: 14px 16px; color: #fff; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+.debug summary::-webkit-details-marker { display: none; }
+.debug summary::before { content: "▸"; transition: transform .2s; }
+.debug[open] summary::before { transform: rotate(90deg); }
+.debug-body { padding: 0 16px 16px; }
 .debug pre { white-space: pre-wrap; word-break: break-word; margin: 0; }
 .debug .reason { color: #ffd166; margin-bottom: 8px; }
-.debug button { margin-top: 8px; }
+.demo-controls { margin: 48px 0 24px; padding-top: 16px; border-top: 1px dashed var(--border); display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.demo-controls h2 { width: 100%; margin: 0 0 4px; font-size: 14px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+.demo-controls .btn { border: 1px solid var(--border); }
 dialog { border: 0; border-radius: 12px; padding: 20px; width: min(400px, 92vw); }
 dialog.details { width: min(760px, 94vw); }
 dialog.details .grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }

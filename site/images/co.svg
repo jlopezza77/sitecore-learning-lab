@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 360" role="img" aria-label="Colombia">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#8fd3f4"/>
+      <stop offset="1" stop-color="#d8f1e4"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="360" fill="url(#sky)"/>
+  <circle cx="1000" cy="70" r="40" fill="#fff6c2"/>
+  <ellipse cx="300" cy="70" rx="70" ry="18" fill="#fff" opacity=".8"/>
+  <ellipse cx="620" cy="50" rx="55" ry="14" fill="#fff" opacity=".7"/>
+  <!-- Andes, layered -->
+  <path d="M0 210 Q150 90 320 170 T650 140 T1000 160 T1200 120 V360 H0Z" fill="#6aa86b"/>
+  <path d="M0 250 Q200 150 420 220 T850 200 T1200 190 V360 H0Z" fill="#3f8f4f"/>
+  <!-- Coffee rows -->
+  <g stroke="#245c32" stroke-width="10" stroke-linecap="round" stroke-dasharray="2 16" fill="none">
+    <path d="M40 255 Q220 185 420 245"/><path d="M60 280 Q240 210 440 270"/>
+    <path d="M500 250 Q700 200 900 235"/><path d="M520 275 Q720 225 920 260"/>
+  </g>
+  <!-- Wax palms -->
+  <g>
+    <rect x="455" y="120" width="7" height="160" fill="#c8b89a"/>
+    <path d="M458 120 q-40 -5 -60 20 M458 120 q40 -5 60 20 M458 120 q-25 -30 -55 -25 M458 120 q25 -30 55 -25 M458 120 q0 -30 0 -40" stroke="#2f6d3a" stroke-width="7" fill="none" stroke-linecap="round"/>
+    <rect x="525" y="150" width="6" height="130" fill="#c8b89a"/>
+    <path d="M528 150 q-32 -4 -48 16 M528 150 q32 -4 48 16 M528 150 q-20 -24 -44 -20 M528 150 q20 -24 44 -20" stroke="#2f6d3a" stroke-width="6" fill="none" stroke-linecap="round"/>
+  </g>
+  <!-- Colorful colonial houses with zocalos and balconies -->
+  <g>
+    <rect x="0" y="300" width="1200" height="60" fill="#9c7b55"/>
+    <rect x="600" y="215" width="120" height="95" fill="#f4d35e"/><rect x="600" y="285" width="120" height="25" fill="#ee6c4d"/>
+    <rect x="720" y="230" width="110" height="80" fill="#4ea8de"/><rect x="720" y="285" width="110" height="25" fill="#f4d35e"/>
+    <rect x="830" y="210" width="130" height="100" fill="#e56b6f"/><rect x="830" y="285" width="130" height="25" fill="#355070"/>
+    <path d="M592 218 L660 190 L728 218Z M712 233 L775 208 L838 233Z M822 213 L895 185 L968 213Z" fill="#b5523b"/>
+    <g fill="#fff"><rect x="625" y="235" width="22" height="30"/><rect x="672" y="235" width="22" height="30"/>
+      <rect x="745" y="245" width="22" height="28"/><rect x="785" y="245" width="22" height="28"/>
+      <rect x="850" y="230" width="24" height="32"/><rect x="915" y="230" width="24" height="32"/></g>
+    <g stroke="#6b3e26" stroke-width="4"><path d="M618 268H700M738 276H812M842 265H950"/></g>
+  </g>
+  <!-- Flag colors accent -->
+  <rect x="0" y="348" width="600" height="12" fill="#fcd116"/><rect x="600" y="348" width="300" height="12" fill="#003893"/><rect x="900" y="348" width="300" height="12" fill="#ce1126"/>
+  <!-- Trust shield -->
+  <g transform="translate(70 70)">
+    <path d="M80 0L160 30V95C160 150 120 180 80 195C40 180 0 150 0 95V30Z" fill="#0b4f6c" stroke="#fff" stroke-width="6"/>
+    <text x="80" y="68" text-anchor="middle" font-family="system-ui, sans-serif" font-size="30" font-weight="700" fill="#fff">100%</text>
+    <path d="M48 112L72 136L116 88" stroke="#fff" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </g>
+</svg>

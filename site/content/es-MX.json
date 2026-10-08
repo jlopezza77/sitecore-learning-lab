@@ -114,6 +114,18 @@
       }
     }
   ],
+  "trust": {
+    "image": "images/mx.svg",
+    "alt": "Ilustración: Ángel de la Independencia, casas coloniales, papel picado y un escudo de seguridad",
+    "title": "Tu banco de confianza, 100% mexicano",
+    "text": "Nacimos aquí y entendemos cómo cuida su dinero una familia mexicana: con cercanía, claridad y sin letras chiquitas.",
+    "badges": [
+      "Regulado por la CNBV",
+      "Depósitos protegidos por el IPAB",
+      "Atención 24/7 en español"
+    ],
+    "note": "Banco ficticio para fines de demostración."
+  },
   "labels": {
     "learnMore": "Ver más",
     "apply": "Solicitar",

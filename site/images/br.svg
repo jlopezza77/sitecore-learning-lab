@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 360" role="img" aria-label="Brasil">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#5ec8e5"/>
+      <stop offset="1" stop-color="#c9f0e8"/>
+    </linearGradient>
+    <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1c7fb5"/>
+      <stop offset="1" stop-color="#2fa3c9"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="360" fill="url(#sky)"/>
+  <circle cx="180" cy="80" r="45" fill="#fff3b0"/>
+  <!-- Sea -->
+  <rect x="0" y="215" width="1200" height="70" fill="url(#sea)"/>
+  <!-- Pao de Acucar and Morro da Urca -->
+  <path d="M560 225 C560 150 600 120 620 120 C640 120 660 150 665 225Z" fill="#3d6b4f"/>
+  <path d="M640 225 C650 60 700 40 730 40 C760 40 800 70 815 225Z" fill="#2f5a43"/>
+  <path d="M705 52 C715 44 745 44 755 52" stroke="#4b7d5f" stroke-width="6" fill="none"/>
+  <!-- Cable car -->
+  <path d="M500 165 L620 122 L728 44" stroke="#333" stroke-width="2" fill="none"/>
+  <rect x="660" y="88" width="16" height="12" rx="2" fill="#e63946"/>
+  <!-- Distant hills -->
+  <path d="M820 225 Q900 150 980 200 T1200 170 V225Z" fill="#4c8a63"/>
+  <path d="M0 225 Q90 170 200 205 T420 190 L500 225Z" fill="#4c8a63"/>
+  <!-- Beach -->
+  <path d="M0 285 Q600 255 1200 285 V310 H0Z" fill="#f4e1b5"/>
+  <!-- Copacabana wave sidewalk -->
+  <rect x="0" y="305" width="1200" height="55" fill="#fff"/>
+  <g stroke="#222" stroke-width="7" fill="none">
+    <path d="M0 322 Q25 307 50 322 T100 322 T150 322 T200 322 T250 322 T300 322 T350 322 T400 322 T450 322 T500 322 T550 322 T600 322 T650 322 T700 322 T750 322 T800 322 T850 322 T900 322 T950 322 T1000 322 T1050 322 T1100 322 T1150 322 T1200 322"/>
+    <path d="M0 347 Q25 332 50 347 T100 347 T150 347 T200 347 T250 347 T300 347 T350 347 T400 347 T450 347 T500 347 T550 347 T600 347 T650 347 T700 347 T750 347 T800 347 T850 347 T900 347 T950 347 T1000 347 T1050 347 T1100 347 T1150 347 T1200 347"/>
+  </g>
+  <!-- Palm trees -->
+  <g>
+    <path d="M410 300 Q400 240 420 185" stroke="#8b5e3c" stroke-width="9" fill="none"/>
+    <path d="M420 185 q-45 0 -65 25 M420 185 q45 -5 65 22 M420 185 q-30 -30 -60 -25 M420 185 q30 -32 62 -22 M420 185 q5 -30 -5 -42" stroke="#1f7a3a" stroke-width="8" fill="none" stroke-linecap="round"/>
+    <path d="M920 300 Q930 250 912 200" stroke="#8b5e3c" stroke-width="8" fill="none"/>
+    <path d="M912 200 q-40 0 -58 22 M912 200 q40 -4 58 20 M912 200 q-26 -26 -54 -22 M912 200 q26 -28 54 -20" stroke="#1f7a3a" stroke-width="7" fill="none" stroke-linecap="round"/>
+  </g>
+  <!-- Green and yellow accent -->
+  <rect x="0" y="0" width="1200" height="10" fill="#009c3b"/><rect x="0" y="10" width="1200" height="6" fill="#ffdf00"/>
+  <!-- Trust shield -->
+  <g transform="translate(990 60)">
+    <path d="M80 0L160 30V95C160 150 120 180 80 195C40 180 0 150 0 95V30Z" fill="#0b4f6c" stroke="#fff" stroke-width="6"/>
+    <text x="80" y="68" text-anchor="middle" font-family="system-ui, sans-serif" font-size="30" font-weight="700" fill="#fff">100%</text>
+    <path d="M48 112L72 136L116 88" stroke="#fff" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </g>
+</svg>

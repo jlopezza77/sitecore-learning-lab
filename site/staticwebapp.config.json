@@ -1,4 +1,4 @@
 {
   "platform": { "apiRuntime": "node:22" },
-  "navigationFallback": { "rewrite": "/index.html", "exclude": ["/content/*", "*.{css,js,json}", "/dashboard.html"] }
+  "navigationFallback": { "rewrite": "/index.html", "exclude": ["/content/*", "/images/*", "*.{css,js,json}", "/dashboard.html"] }
 }

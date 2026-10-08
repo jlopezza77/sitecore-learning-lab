@@ -26,12 +26,30 @@
       <button id="hero-cta" class="btn"></button>
     </section>
 
+    <p id="status" class="status" hidden></p>
+
     <section id="products" class="grid"></section>
 
-    <section class="debug">
-      <h2>Behind the scenes (what SitecoreAI would do)</h2>
-      <div id="reason" class="reason"></div>
-      <pre id="profile"></pre>
+    <section class="trust">
+      <img id="trust-img" alt="">
+      <div class="trust-body">
+        <h2 id="trust-title"></h2>
+        <p id="trust-text"></p>
+        <ul id="trust-badges" class="badges"></ul>
+        <p id="trust-note" class="note"></p>
+      </div>
+    </section>
+
+    <details class="debug">
+      <summary>Behind the scenes (what SitecoreAI would do)</summary>
+      <div class="debug-body">
+        <div id="reason" class="reason"></div>
+        <pre id="profile"></pre>
+      </div>
+    </details>
+
+    <section class="demo-controls">
+      <h2>Demo controls</h2>
       <button id="open-email" class="btn" hidden>📧 Open the email we sent you (returns with ?src=email)</button>
       <button id="switch-group" class="btn">Cambiar grupo A/B (demo)</button>
       <button id="new-visitor" class="btn">Start as a new visitor</button>

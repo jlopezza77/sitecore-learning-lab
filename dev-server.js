@@ -7,7 +7,7 @@ const logic = require('./api/src/lib/logic');
 
 const PORT = process.env.PORT || 4280;
 const SITE = path.join(__dirname, 'site');
-const TYPES = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json' };
+const TYPES = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.svg': 'image/svg+xml' };
 const ROUTES = {
   'POST /api/track': logic.track,
   'GET /api/decide': logic.decide,

@@ -114,6 +114,18 @@
       }
     }
   ],
+  "trust": {
+    "image": "images/br.svg",
+    "alt": "Ilustração: Pão de Açúcar, calçadão de Copacabana, palmeiras e um escudo de segurança",
+    "title": "Seu banco de confiança, 100% brasileiro",
+    "text": "Somos daqui e falamos a sua língua: transparência, atendimento de verdade e tudo resolvido no celular, com a agilidade do Pix.",
+    "badges": [
+      "Autorizado pelo Banco Central do Brasil",
+      "Depósitos garantidos pelo FGC",
+      "Atendimento 24h em português"
+    ],
+    "note": "Banco fictício para fins de demonstração."
+  },
   "labels": {
     "learnMore": "Saiba mais",
     "apply": "Solicitar",

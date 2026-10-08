@@ -2,7 +2,7 @@
 
 | Level | Marketing concept | SitecoreAI capability | In this lab | Azure service |
 |---|---|---|---|---|
-| 1. Content | Headless content, one model for many markets/languages | XM Cloud (now SitecoreAI) + Next.js / JSS, multisite, language versions | `site/content/es-MX.json`, `es-CO.json`, `pt-BR.json` – same structure, localized copy and offers | Static Web Apps (Free) |
+| 1. Content | Headless content, one model for many markets/languages | XM Cloud (now SitecoreAI) + Next.js / JSS, multisite, language versions | `site/content/es-MX.json`, `es-CO.json`, `pt-BR.json` – same structure, localized copy and offers; per-market trust image in `site/images/` referenced from content (≈ DAM) | Static Web Apps (Free) |
 | 2. Data | Collect behavioral events, unify into a profile | Sitecore CDP (events API, guest profile) | `POST /api/track` → profile with interests, segment, application status | Functions + Cosmos DB (free tier) |
 | 3. Segmentation | Group visitors by behavior | CDP segments / audiences | Rule: ≥1 view of a product (product detail opened) → segment `card`, `loan` or `savings` | Functions |
 | 4. Personalization | Show the right content to the right person | Sitecore Personalize (decisioning, experiences) | `GET /api/decide` swaps the hero banner to the segment's offer | Functions |

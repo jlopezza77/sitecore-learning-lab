@@ -114,6 +114,18 @@
       }
     }
   ],
+  "trust": {
+    "image": "images/co.svg",
+    "alt": "Ilustración: montañas cafeteras, palmas de cera, casas coloniales de colores y un escudo de seguridad",
+    "title": "Tu banco de confianza, 100% colombiano",
+    "text": "Somos de aquí, como el café de nuestras montañas: trabajamos con la gente, cumplimos lo que prometemos y te hablamos claro.",
+    "badges": [
+      "Vigilado por la Superintendencia Financiera de Colombia",
+      "Depósitos asegurados por Fogafín",
+      "Atención 24/7 en todo el país"
+    ],
+    "note": "Banco ficticio para fines de demostración."
+  },
   "labels": {
     "learnMore": "Ver más",
     "apply": "Solicitar",

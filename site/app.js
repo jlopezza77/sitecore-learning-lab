@@ -54,6 +54,16 @@ async function load() {
   $('label-email').textContent = l.email;
   $('submit').textContent = l.submit;
   $('cancel').textContent = l.cancel;
+  $('status').hidden = true;
+
+  // Market-specific media and trust message come from the content file too (like a DAM + CMS).
+  const t = content.trust;
+  $('trust-img').src = t.image;
+  $('trust-img').alt = t.alt;
+  $('trust-title').textContent = t.title;
+  $('trust-text').textContent = t.text;
+  $('trust-badges').innerHTML = t.badges.map((b) => `<li>${b}</li>`).join('');
+  $('trust-note').textContent = t.note;
 
   $('products').innerHTML = content.products
     .map((p) => `
@@ -103,7 +113,8 @@ $('hero-cta').onclick = () => (currentProduct ? openForm(currentProduct) : $('pr
 $('submit').onclick = async () => {
   $('form').close();
   await track('application_submitted', currentProduct);
-  $('reason').textContent = content.labels.thanks;
+  $('status').textContent = content.labels.thanks;
+  $('status').hidden = false;
 };
 $('cancel').onclick = () => $('form').close();
 $('details-close').onclick = () => $('details').close();
