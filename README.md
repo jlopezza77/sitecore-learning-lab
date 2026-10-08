@@ -36,6 +36,100 @@ Dashboard ── POST /api/journeys/abandoned ─► email Level 6  Cross-channe
 | `api/src/functions/http.js` | Azure Functions endpoints |
 | `dev-server.js` | Local server that replaces Azure for development |
 
+## Key concepts: multilingual content and CDP
+
+*Versión en español más abajo: [Conceptos clave](#conceptos-clave-multilenguaje-y-cdp).*
+
+### Multilingual: platform or implementation service?
+Both, with different roles:
+
+| Who | What they bring | Banking example |
+|---|---|---|
+| **The platform (Sitecore)** | The capability: each page or content item can have versions per language and country, and one system runs several sites | The "Gold Card" page exists in es-MX, es-CO and pt-BR, and the system serves the right version to each visitor |
+| **The implementation partner (e.g. TEAMCX)** | The setup: which languages and sites exist, how content is structured, the translation and approval workflow, and the connection to translation services | Decides that Brazil gets its own site, that Legal approves every offer before publishing, and that translations go through a provider or AI |
+| **The customer's content team** | The words themselves: translating and adapting | Writes "cuota de manejo" for Colombia and "anuidade" for Brazil |
+
+An analogy: the platform is a building that already has utilities for several apartments. The partner decides how many apartments there are and how they're laid out. The customer furnishes them.
+
+What Sitecore provides as a platform:
+- **Language versions** of each content item, with a fallback option: if the es-CO version is missing, it can show es-MX.
+- **Multisite**: several sites (per country or brand) in one installation, sharing components.
+- **Workflows**: draft, review and approval per language.
+- **Translation connectors** and, with SitecoreAI, AI agents that translate and adapt content.
+
+**In this demo:** `es-MX.json`, `es-CO.json` and `pt-BR.json` play the role of language versions. Same structure, different copy, and a country is added without touching code.
+
+### What is a CDP?
+**CDP = Customer Data Platform.** It collects everything a person does across channels and unifies it into **one profile** that other tools can use in real time.
+
+It does four things:
+1. **Collects** events from every channel: web, app, email, branch, call center. For example: "viewed the Gold card", "opened the email", "started an application".
+2. **Resolves identity.** At first the visitor is anonymous. When they log in or leave their email, the CDP joins the anonymous history with the known profile. That way the bank knows the person who browsed cards on Monday on their phone is the same one visiting today on a laptop.
+3. **Segments** by behavior: "interested in cards", "abandoned the application", "high-value customers in Colombia".
+4. **Activates** those segments in other channels: the website shows the offer, email sends the reminder, the call center sees the profile.
+
+**How it differs from other tools:**
+
+| Tool | Purpose | Difference |
+|---|---|---|
+| **CRM** (Salesforce, Dynamics) | Managing known customers and sales | Mostly used by people (advisors, sellers); barely sees anonymous web behavior |
+| **DMP** | Advertising with third-party data (cookies) | Anonymous, short-lived data from other sites; declining because of privacy |
+| **CDP** | A unified profile from first-party data, anonymous and known, in real time | Built so systems can personalize automatically |
+
+**In Sitecore:** Sitecore CDP came from the **Boxever** acquisition in 2021 and is now part of SitecoreAI. It works together with **Personalize**: the CDP knows who the customer is, and Personalize decides what to show them.
+
+**In this demo:** `/api/track` collects events, the profile in Cosmos DB is the unified profile, the `segment` rule is segmentation, and the personalized banner and abandonment email are activation. You can watch it live in the **"Behind the scenes"** panel.
+
+**For the interview:**
+> "The CDP is the customer's memory: it remembers what they did in every channel and joins it into one profile. Personalize is the brain that decides what to show them. And multilingual content is the voice used to speak to them in their own country."
+
+## Conceptos clave: multilenguaje y CDP
+
+*English version above: [Key concepts](#key-concepts-multilingual-content-and-cdp).*
+
+### Multilenguaje: ¿plataforma o servicio de implementación?
+Las dos cosas, con papeles distintos:
+
+| Quién | Qué aporta | Ejemplo en un banco |
+|---|---|---|
+| **La plataforma (Sitecore)** | La capacidad: cada página o contenido puede tener versiones por idioma y por país, y un mismo sistema maneja varios sitios | La página "Tarjeta Oro" existe en es-MX, es-CO y pt-BR, y el sistema sirve la versión correcta según el visitante |
+| **El partner de implementación (como TEAMCX)** | La configuración: qué idiomas y sitios habrá, cómo se estructura el contenido, el flujo de traducción y aprobación, y la conexión con servicios de traducción | Define que Brasil tiene su propio sitio, que legal aprueba cada oferta antes de publicarla y que las traducciones pasan por un proveedor o por IA |
+| **El equipo de contenido del cliente** | El texto en sí: traduce y adapta | Escribe "cuota de manejo" para Colombia y "anuidade" para Brasil |
+
+Una comparación: la plataforma es un edificio que ya trae instalaciones para varios departamentos. El partner decide cuántos departamentos habrá y cómo se distribuyen. El cliente los amuebla.
+
+Lo que Sitecore aporta como plataforma:
+- **Versiones por idioma** de cada contenido, con una opción de respaldo: si falta la versión es-CO, puede mostrar la es-MX.
+- **Multisitio**: varios sitios (por país o por marca) en una sola instalación, que comparten componentes.
+- **Flujos de trabajo**: borrador, revisión y aprobación por idioma.
+- **Conectores de traducción** y, con SitecoreAI, agentes de IA que traducen y adaptan el contenido.
+
+**En esta demo:** los archivos `es-MX.json`, `es-CO.json` y `pt-BR.json` hacen el papel de las versiones por idioma. Tienen la misma estructura, cambia el texto y se agrega un país sin tocar código.
+
+### ¿Qué es un CDP?
+**CDP = Customer Data Platform** (plataforma de datos de clientes). Junta todo lo que una persona hace en cualquier canal y lo une en **un solo perfil**, que otras herramientas pueden usar en tiempo real.
+
+Hace cuatro cosas:
+1. **Recolecta** eventos de todos los canales: web, app, email, sucursal, call center. Por ejemplo: "vio la tarjeta Oro", "abrió el email", "empezó una solicitud".
+2. **Unifica la identidad.** Al principio el visitante es anónimo. Cuando inicia sesión o deja su email, el CDP une su historial anónimo con su perfil conocido. Así el banco sabe que la persona que miró tarjetas el lunes desde el celular es la misma que entró hoy desde la laptop.
+3. **Segmenta** según el comportamiento: "interesados en tarjeta", "abandonaron la solicitud", "clientes de alto valor en Colombia".
+4. **Activa** esos segmentos en otros canales: la web muestra la oferta, el email envía el recordatorio, el call center ve el perfil.
+
+**Cómo se diferencia de otras herramientas:**
+
+| Herramienta | Para qué sirve | Diferencia |
+|---|---|---|
+| **CRM** (Salesforce, Dynamics) | Gestionar clientes conocidos y ventas | Lo usan principalmente personas (asesores, vendedores); casi no ve el comportamiento anónimo en la web |
+| **DMP** | Publicidad con datos de terceros (cookies) | Datos anónimos y temporales, de otros sitios; está en declive por la privacidad |
+| **CDP** | Un perfil unificado con datos propios, anónimos y conocidos, en tiempo real | Pensado para que los sistemas personalicen automáticamente |
+
+**En Sitecore:** Sitecore CDP nació de la compra de **Boxever** en 2021 y hoy forma parte de SitecoreAI. Trabaja junto a **Personalize**: el CDP sabe quién es el cliente y Personalize decide qué mostrarle.
+
+**En esta demo:** `/api/track` recolecta los eventos, el perfil en Cosmos DB es el perfil unificado, la regla de `segment` es la segmentación, y el banner personalizado y el email de abandono son la activación. Se puede ver en vivo en el panel **"Behind the scenes"**.
+
+**Para la entrevista:**
+> "El CDP es la memoria del cliente: recuerda lo que hizo en cada canal y lo une en un perfil. Personalize es el cerebro que decide qué mostrarle. Y el contenido multilenguaje es la voz con la que se le habla en su país."
+
 ## 10-minute demo script (value first, technology second)
 
 1. **The business problem (1 min)**: a LATAM digital bank shows the same generic page to everyone in three countries, and people who start applications and abandon them are lost.
