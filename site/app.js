@@ -40,6 +40,7 @@ async function personalize() {
   $('reason').textContent = `Decision: ${reason}`;
   const { id, group, groupForced, segment, interests, applicationStarted, converted, convertedVia, outbox } = profile;
   currentGroup = group;
+  $('switch-group').textContent = `Cambiar grupo A/B (${group})`;
   $('profile').textContent = JSON.stringify({ visitorId: id, group, groupForced: !!groupForced, segment, interests, applicationStarted, converted, convertedVia, outbox }, null, 2);
   $('open-email').hidden = !(outbox && outbox.length) || converted;
 }
