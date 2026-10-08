@@ -195,7 +195,7 @@ Without the control group you'd only have the 14%, with no way to tell whether t
 
 **In Sitecore:** Sitecore Personalize does the same with its A/B experiments: you set what share of traffic sees each variant, including the control, and the report shows which one wins and with what statistical confidence.
 
-**In the live demo:** the **"Cambiar grupo A/B (demo)"** button lets you show both groups. Those visitors are flagged `groupForced: true` and excluded from the dashboard metrics, so the experiment stays clean.
+**In the live demo:** the **"Cambiar grupo A/B (personalized | control)"** button lets you show both groups. Those visitors are flagged `groupForced: true` and excluded from the dashboard metrics, so the experiment stays clean.
 
 **For the interview:**
 > "I don't show the offer to everyone who's interested. I keep a control group on the generic experience, because without it I can't prove to the customer that personalization caused the lift in sales. That's what turns a feature demo into a business case."
@@ -284,7 +284,7 @@ Sin el grupo de control solo tendrías el 14%, y no sabrías si es bueno o malo,
 
 **En Sitecore:** Sitecore Personalize hace lo mismo con sus experimentos A/B: define qué porcentaje del tráfico ve cada variante, incluido el grupo de control, y el reporte muestra cuál gana y con qué confianza estadística.
 
-**En la demo en vivo:** el botón **"Cambiar grupo A/B (demo)"** permite mostrar los dos grupos. Esos visitantes quedan marcados con `groupForced: true` y fuera de las métricas del dashboard, para que el experimento siga limpio.
+**En la demo en vivo:** el botón **"Cambiar grupo A/B (personalized | control)"** permite mostrar los dos grupos. Esos visitantes quedan marcados con `groupForced: true` y fuera de las métricas del dashboard, para que el experimento siga limpio.
 
 **Para la entrevista:**
 > "No le muestro la oferta a todos los interesados. Mantengo un grupo de control con la experiencia genérica, porque sin él no puedo demostrar al cliente que la personalización causó el aumento de ventas. Eso es lo que convierte una demo de funcionalidades en un caso de negocio."
