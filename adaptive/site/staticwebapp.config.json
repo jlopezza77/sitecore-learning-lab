@@ -1,0 +1,7 @@
+{
+  "navigationFallback": { "rewrite": "/index.html", "exclude": ["/*.{css,js,json,svg,png}"] },
+  "globalHeaders": {
+    "X-Robots-Tag": "noindex, nofollow",
+    "X-Content-Type-Options": "nosniff"
+  }
+}

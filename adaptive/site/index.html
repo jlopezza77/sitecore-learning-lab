@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Security Awareness Portfolio</title>
+  <meta name="description" content="Security awareness training and phishing simulation program built on Adaptive Security.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="shell">
+  <nav class="side" aria-label="Pages"></nav>
+  <main class="main">
+    <div class="page">
+      <div class="page-head">
+        <div>
+          <div class="mono" id="eyebrow"></div>
+          <h1>Security Awareness Program</h1>
+          <p class="muted">How I run phishing simulations and build AI-generated, hospitality-specific training for about 800 associates, using Adaptive Security's AI Content Studio.</p>
+        </div>
+        <a class="btn" href="module-request.html">See how I build a module →</a>
+      </div>
+
+      <div class="kpis" id="kpis"></div>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <h2>Phishing simulation fail rate</h2>
+            <div class="muted small">Share of associates who clicked or submitted credentials, per org-wide campaign (2026)</div>
+          </div>
+        </div>
+        <div class="card chart" id="chart"></div>
+        <p class="muted small">Templates differ in difficulty from month to month, so read the trend alongside each campaign's lure. Every failure was auto-enrolled in remediation training from June on.</p>
+      </section>
+
+      <section class="section">
+        <div class="section-head"><h2>Phishing campaigns</h2><span class="chip" id="phishCount"></span></div>
+        <div class="table-wrap"><table id="phishTable"></table></div>
+      </section>
+
+      <section class="section">
+        <div class="section-head"><h2>Training campaigns</h2><span class="chip" id="trainCount"></span></div>
+        <div class="table-wrap"><table id="trainTable"></table></div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <h2>Custom module library</h2>
+            <div class="muted small">Modules I generated and edited with AI, tailored to luxury hospitality</div>
+          </div>
+          <div class="toolbar">
+            <input class="input" id="q" type="search" placeholder="Search modules" aria-label="Search modules">
+            <select id="topic" aria-label="Filter by topic"></select>
+          </div>
+        </div>
+        <div class="modules" id="modules"></div>
+      </section>
+
+      <div class="foot" id="foot"></div>
+    </div>
+  </main>
+</div>
+<script src="data.js"></script>
+<script src="app.js"></script>
+<script>
+(function () {
+  const P = PORTFOLIO;
+  const rate = (c) => (c.failed / c.delivered) * 100;
+  const first = P.phishing.find((c) => c.month === 'Jun');
+  const last = P.phishing[P.phishing.length - 1];
+  const enroll = P.training.slice(0, 3).reduce((s, t) => s + t.enrolled, 0);
+  const completed = P.training.slice(0, 3).reduce((s, t) => s + t.enrolled * t.completion / 100, 0);
+
+  document.getElementById('eyebrow').textContent = `${P.org} · ${P.team}`;
+  document.getElementById('foot').textContent = `Aggregate figures from the ${P.platform} admin console, ${P.asOf}. No individual employee data is shown.`;
+
+  const kpis = [
+    ['Custom AI modules', P.modules.length, 'Created in AI Content Studio'],
+    ['Phishing simulations', P.phishing.length, `~${fmt.int(Math.round(P.phishing.reduce((s, c) => s + c.delivered, 0) / P.phishing.length))} associates each`],
+    ['Fail rate', fmt.pct(rate(last)), `${last.month} 2026, down from ${fmt.pct(rate(first))} in ${first.month}`],
+    ['Training enrollments', fmt.int(enroll), `${fmt.pct(completed / enroll * 100)} completion`],
+  ];
+  document.getElementById('kpis').innerHTML = kpis.map(([l, v, s]) =>
+    `<div class="card kpi"><div class="label">${l}</div><div class="value">${v}</div><div class="sub">${s}</div></div>`).join('');
+
+  // Column chart: one series, value on each cap, hover tooltip.
+  const W = 760, H = 260, m = { t: 24, r: 8, b: 44, l: 40 };
+  const iw = W - m.l - m.r, ih = H - m.t - m.b;
+  const max = 40, band = iw / P.phishing.length, bw = Math.min(24, band * 0.5);
+  const y = (v) => m.t + ih - (v / max) * ih;
+  const ticks = [0, 10, 20, 30, 40];
+  let svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Fail rate by campaign">
+    <g class="grid">${ticks.map((t) => `<line x1="${m.l}" x2="${W - m.r}" y1="${y(t)}" y2="${y(t)}"/>`).join('')}</g>
+    <g class="axis">${ticks.map((t) => `<text x="${m.l - 8}" y="${y(t) + 4}" text-anchor="end">${t}%</text>`).join('')}</g>`;
+  P.phishing.forEach((c, i) => {
+    const v = rate(c), cx = m.l + band * i + band / 2, top = y(v), h = m.t + ih - top, r = Math.min(4, h);
+    const x0 = cx - bw / 2, x1 = cx + bw / 2, base = m.t + ih;
+    svg += `<rect class="hit" data-i="${i}" x="${m.l + band * i}" y="${m.t}" width="${band}" height="${ih}"/>
+      <path class="bar" d="M${x0},${base} V${top + r} Q${x0},${top} ${x0 + r},${top} H${x1 - r} Q${x1},${top} ${x1},${top + r} V${base} Z"/>
+      <text class="cap" x="${cx}" y="${top - 8}" text-anchor="middle">${fmt.pct(v)}</text>
+      <g class="axis"><text x="${cx}" y="${base + 18}" text-anchor="middle">${c.month}</text>
+      <text x="${cx}" y="${base + 34}" text-anchor="middle" style="font-size:11px">${c.name.length > 22 ? c.name.slice(0, 20) + '…' : c.name}</text></g>`;
+  });
+  svg += '</svg><div class="tip" role="status"></div>';
+  const chart = document.getElementById('chart');
+  chart.innerHTML = svg;
+  const tip = chart.querySelector('.tip');
+  chart.querySelectorAll('.hit').forEach((el) => {
+    el.addEventListener('mousemove', (e) => {
+      const c = P.phishing[+el.dataset.i], b = chart.getBoundingClientRect();
+      tip.innerHTML = `<b>${esc(c.name)}</b>
+        <div class="row"><span>Launched</span><span>${fmt.date(c.start)}</span></div>
+        <div class="row"><span>Delivered</span><span>${fmt.int(c.delivered)}</span></div>
+        <div class="row"><span>Failed</span><span>${fmt.int(c.failed)} (${fmt.pct(rate(c))})</span></div>
+        <div class="row"><span>Reported</span><span>${fmt.int(c.reported)} (${fmt.pct(c.reported / c.delivered * 100)})</span></div>`;
+      const x = Math.min(e.clientX - b.left + 14, b.width - 220);
+      tip.style.left = Math.max(0, x) + 'px';
+      tip.style.top = (e.clientY - b.top - 10) + 'px';
+      tip.classList.add('show');
+    });
+    el.addEventListener('mouseleave', () => tip.classList.remove('show'));
+  });
+
+  document.getElementById('phishCount').textContent = `${P.phishing.length} org-wide`;
+  document.getElementById('phishTable').innerHTML = `
+    <thead><tr><th>Campaign</th><th>Status</th><th>Launched</th><th class="r">Delivered</th><th class="r">Failed</th><th class="r">Fail rate</th><th class="r">Reported</th><th>Remediation</th></tr></thead>
+    <tbody>${P.phishing.slice().reverse().map((c) => `<tr>
+      <td>${esc(c.name)}</td><td><span class="status">Ended</span></td><td>${fmt.date(c.start)}</td>
+      <td class="r num">${fmt.int(c.delivered)}</td><td class="r num">${fmt.int(c.failed)}</td><td class="r num">${fmt.pct(rate(c))}</td>
+      <td class="r num">${fmt.int(c.reported)}</td><td>${c.remediation ? 'Enabled' : 'Off'}</td></tr>`).join('')}</tbody>`;
+
+  document.getElementById('trainCount').textContent = `${P.training.length} campaigns`;
+  document.getElementById('trainTable').innerHTML = `
+    <thead><tr><th>Campaign</th><th>Status</th><th>Start</th><th>Due</th><th class="r">Enrolled</th><th class="r">Completion</th></tr></thead>
+    <tbody>${P.training.slice().reverse().map((t) => `<tr>
+      <td>${esc(t.name)}</td><td><span class="status">Ended</span></td><td>${fmt.date(t.start)}</td><td>${fmt.date(t.due)}</td>
+      <td class="r num">${fmt.int(t.enrolled)}</td><td class="r num">${fmt.pct(t.completion)}</td></tr>`).join('')}</tbody>`;
+
+  const icons = { Phishing: '🎣', Smishing: '📱', Vishing: '📞', Executive: '🐋', Identity: '🔐', Remediation: '↺', Malware: '🦠', 'Data protection': '🛎️', AI: '✨', Awareness: '🛡️', Compliance: '💳', Reporting: '🚩', IT: '⚙️' };
+  const topics = ['All topics', ...new Set(P.modules.map((x) => x[1]))];
+  const sel = document.getElementById('topic');
+  sel.innerHTML = topics.map((t) => `<option>${t}</option>`).join('');
+  const q = document.getElementById('q');
+  function renderModules() {
+    const term = q.value.trim().toLowerCase(), t = sel.value;
+    const list = P.modules.filter(([n, k]) => (t === 'All topics' || k === t) && n.toLowerCase().includes(term));
+    document.getElementById('modules').innerHTML = list.length ? list.map(([n, k]) => `
+      <div class="module"><div class="thumb" aria-hidden="true">${icons[k] || '📘'}</div>
+      <div class="body"><div class="title">${esc(n)}</div><div class="meta"><span class="chip">${k}</span><span class="chip">AI-generated</span></div></div></div>`).join('')
+      : '<p class="muted">No modules match.</p>';
+  }
+  q.addEventListener('input', renderModules);
+  sel.addEventListener('change', renderModules);
+  renderModules();
+})();
+</script>
+</body>
+</html>

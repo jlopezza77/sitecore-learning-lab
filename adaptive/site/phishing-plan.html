@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Phishing Schedule Plan</title>
+  <meta name="description" content="Month-by-month calendar of phishing simulations and security training.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="shell">
+  <nav class="side" aria-label="Pages"></nav>
+  <main class="main">
+    <div class="page">
+      <div class="page-head">
+        <div>
+          <div class="mono">Luxury Resort Client · IT security awareness</div>
+          <h1>Phishing Schedule Plan</h1>
+          <p class="muted">A month-by-month view of the 2026 phishing and training calendar. Click any card to see its results, or to set the launch date, time and duration of a planned item.</p>
+        </div>
+      </div>
+
+      <div class="legend">
+        <span><i style="background:var(--training)"></i>Quarterly Training: first month of each quarter</span>
+        <span><i style="background:var(--phish)"></i>Phishing Simulation: every month</span>
+        <span><i style="background:var(--remed)"></i>Remediation Training: only those who fail</span>
+      </div>
+      <div class="legend" style="margin-top:8px">
+        <span><i class="b" style="border-color:var(--st-live)"></i>Live, in progress</span>
+        <span><i class="b" style="border-color:var(--st-ended)"></i>Ended</span>
+        <span><i class="b" style="border-color:var(--st-planned)"></i>Not sent</span>
+      </div>
+
+      <section class="section">
+        <div class="months" id="months"></div>
+      </section>
+
+      <section class="section">
+        <div class="section-head"><h2>Program overview</h2></div>
+        <div class="table-wrap"><table id="overview"></table></div>
+      </section>
+
+      <div class="foot">Luxury Resort Client · IT · Template v1.0</div>
+    </div>
+  </main>
+</div>
+
+<div class="drawer-back" id="back"></div>
+<aside class="drawer" id="drawer" aria-label="Item details" aria-hidden="true"></aside>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+<script>
+(function () {
+  const P = PORTFOLIO;
+  const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const LABEL = { training: 'Quarterly Training', phishing: 'Phishing Simulation', remediation: 'Remediation Training' };
+  const q2 = P.training.slice(0, 3);
+  const remed = P.training[3];
+
+  // Ended items come from the Adaptive console. Planned items are editable placeholders.
+  const events = [
+    { id: 'tr-q2', kind: 'training', m: 4, status: 'ended', title: 'Q2 Training: Phishing, Smishing, Multi-Channel', date: q2[0].start, time: '', days: 31,
+      stats: [[fmt.int(q2.reduce((s, t) => s + t.enrolled, 0)), 'Enrollments'], [fmt.pct(q2.reduce((s, t) => s + t.enrolled * t.completion, 0) / q2.reduce((s, t) => s + t.enrolled, 0)), 'Completion'], ['3', 'Modules']] },
+    ...P.phishing.map((c) => ({
+      id: 'ph-' + c.month, kind: 'phishing', m: MONTHS.indexOf(c.month), status: 'ended', title: c.name, date: c.start, time: '', days: c.month === 'May' ? 2 : 1,
+      stats: [[fmt.int(c.delivered), 'Delivered'], [fmt.pct(c.failed / c.delivered * 100), 'Fail rate'], [fmt.pct(c.reported / c.delivered * 100), 'Reported']],
+    })),
+    { id: 'rm-aug', kind: 'remediation', m: 7, status: 'ended', title: remed.name, date: remed.start, time: '', days: 14,
+      stats: [[fmt.int(remed.enrolled), 'Enrolled'], [fmt.pct(remed.completion, 0), 'Completion'], ['0', 'Overdue']] },
+    { id: 'tr-q4', kind: 'training', m: 9, status: 'planned', title: 'Q4 Training: Cybersecurity Awareness Month', date: '2026-10-20', time: '09:00', days: 30 },
+    { id: 'ph-Oct', kind: 'phishing', m: 9, status: 'planned', title: 'October Simulation', date: '2026-10-28', time: '10:00', days: 1 },
+    { id: 'ph-Nov', kind: 'phishing', m: 10, status: 'planned', title: 'November Simulation: holiday shipping lure', date: '2026-11-18', time: '10:00', days: 1 },
+    { id: 'ph-Dec', kind: 'phishing', m: 11, status: 'planned', title: 'December Simulation: year-end bonus lure', date: '2026-12-09', time: '10:00', days: 1 },
+  ];
+
+  let saved = {};
+  try { saved = JSON.parse(store.get('phishing-plan') || '{}'); } catch (e) { saved = {}; }
+  events.forEach((e) => Object.assign(e, { approved: e.status === 'ended', released: e.status === 'ended' }, e.status === 'planned' ? saved[e.id] : {}));
+  const persist = () => store.set('phishing-plan', JSON.stringify(Object.fromEntries(
+    events.filter((e) => e.status === 'planned').map((e) => [e.id, { title: e.title, date: e.date, time: e.time, days: e.days, approved: e.approved, released: e.released }]))));
+
+  const endDate = (e) => { const d = new Date(e.date + 'T12:00:00'); d.setDate(d.getDate() + Number(e.days)); return d.toISOString().slice(0, 10); };
+  const statusText = { ended: 'Ended', planned: 'Not sent', live: 'Live' };
+
+  function card(e) {
+    return `<button class="ev ${e.status}" type="button" data-id="${e.id}">
+      <div class="kind ${e.kind}">${LABEL[e.kind]}</div>
+      <div class="t">${esc(e.title)}</div>
+      <div class="d">${fmt.date(e.date)} · ${statusText[e.status]}</div></button>`;
+  }
+  function renderMonths() {
+    document.getElementById('months').innerHTML = MONTHS.map((name, i) => {
+      const list = events.filter((e) => e.m === i).sort((a, b) => a.date.localeCompare(b.date));
+      return `<div class="month"><h3>${name} 2026 <span class="muted small">${list.length || ''}</span></h3>
+        ${list.length ? list.map(card).join('') : `<div class="empty">${i < 4 ? 'Before program launch (May 2026)' : 'Nothing scheduled'}</div>`}</div>`;
+    }).join('');
+  }
+
+  const drawer = document.getElementById('drawer'), back = document.getElementById('back');
+  let opener = null;
+  function open(id) {
+    const e = events.find((x) => x.id === id), ro = e.status === 'ended';
+    drawer.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:start;gap:12px">
+        <div><div class="kind ${e.kind} mono" style="color:var(--${e.kind === 'training' ? 'training' : e.kind === 'phishing' ? 'phish' : 'remed'})">${LABEL[e.kind]}</div><h2 style="margin-top:4px">${esc(e.title)}</h2></div>
+        <button class="btn ghost" type="button" id="close" aria-label="Close">✕</button></div>
+      <span class="status ${e.status}" style="align-self:start">${statusText[e.status]}</span>
+      ${ro ? '<div class="note">This record has ended and is read-only. Results come from the Adaptive console.</div>' : '<div class="note">Planned item. Edits update the card right away and are saved in this browser.</div>'}
+      <label>Associate-facing name<input class="input" data-f="title" value="${esc(e.title)}"${ro ? ' disabled' : ''}></label>
+      <div class="row2">
+        <label>Launch date<input class="input" type="date" data-f="date" value="${e.date}"${ro ? ' disabled' : ''}></label>
+        <label>Launch time (ET)<input class="input" type="time" data-f="time" value="${e.time}"${ro ? ' disabled' : ''}></label>
+      </div>
+      <div class="row2">
+        <label>Active for (days)<input class="input" type="number" min="1" max="90" data-f="days" value="${e.days}"${ro ? ' disabled' : ''}></label>
+        <label>Ends<input class="input" id="ends" value="${fmt.date(endDate(e))}" disabled></label>
+      </div>
+      <label>Resource in Adaptive<input class="input" value="${e.kind === 'phishing' ? 'Phishing › Campaigns' : 'Training › Campaigns'}" disabled></label>
+      <hr>
+      <h3>Release tracking</h3>
+      <label style="flex-direction:row;align-items:center;gap:8px;font-size:14px;color:var(--text)"><input type="checkbox" data-f="approved"${e.approved ? ' checked' : ''}${ro ? ' disabled' : ''}> Content approved for release</label>
+      <label style="flex-direction:row;align-items:center;gap:8px;font-size:14px;color:var(--text)"><input type="checkbox" data-f="released"${e.released ? ' checked' : ''}${ro ? ' disabled' : ''}> Ended: fully released to associates</label>
+      ${e.stats ? `<hr><h3>Results</h3><div class="stats">${e.stats.map(([v, l]) => `<div><b>${v}</b><span>${l}</span></div>`).join('')}</div>` : ''}`;
+    drawer.classList.add('open'); back.classList.add('open'); drawer.setAttribute('aria-hidden', 'false');
+    drawer.querySelector('#close').focus();
+    drawer.oninput = (ev) => {
+      const f = ev.target.dataset.f; if (!f) return;
+      e[f] = ev.target.type === 'checkbox' ? ev.target.checked : ev.target.value;
+      if (f === 'date' && e.date) e.m = new Date(e.date + 'T12:00:00').getMonth();
+      if (e.date && e.days > 0) drawer.querySelector('#ends').value = fmt.date(endDate(e));
+      persist(); renderMonths();
+    };
+    drawer.querySelector('#close').onclick = close;
+  }
+  function close() {
+    drawer.classList.remove('open'); back.classList.remove('open'); drawer.setAttribute('aria-hidden', 'true');
+    if (opener && document.body.contains(opener)) opener.focus();
+  }
+  back.addEventListener('click', close);
+  document.addEventListener('keydown', (ev) => { if (ev.key === 'Escape' && drawer.classList.contains('open')) close(); });
+  document.getElementById('months').addEventListener('click', (ev) => {
+    const b = ev.target.closest('.ev'); if (!b) return;
+    opener = b; open(b.dataset.id);
+  });
+
+  const delivered = P.phishing.reduce((s, c) => s + c.delivered, 0);
+  const failed = P.phishing.reduce((s, c) => s + c.failed, 0);
+  document.getElementById('overview').innerHTML = `
+    <thead><tr><th></th><th>Quarterly Training</th><th>Phishing Simulation</th><th>Remediation Training</th></tr></thead>
+    <tbody>
+      <tr><td>Cadence</td><td>First month of each quarter</td><td>Every month</td><td>Triggered by a failed simulation</td></tr>
+      <tr><td>Audience</td><td>All associates</td><td>All associates, plus an IT-only test send first</td><td>Only associates who failed</td></tr>
+      <tr><td>Active window</td><td>~30 days</td><td>1 day</td><td>14 days</td></tr>
+      <tr><td>Content</td><td>AI-generated modules, hospitality scenarios</td><td>Adaptive templates (Teams, DocuSign, MFA, fake login)</td><td>Short module matched to the lure</td></tr>
+      <tr><td>Results so far</td><td class="num">${fmt.int(q2.reduce((s, t) => s + t.enrolled, 0))} enrollments</td><td class="num">${fmt.int(delivered)} emails, ${fmt.pct(failed / delivered * 100)} average fail rate</td><td class="num">${fmt.pct(remed.completion, 0)} completion</td></tr>
+    </tbody>`;
+
+  renderMonths();
+})();
+</script>
+</body>
+</html>

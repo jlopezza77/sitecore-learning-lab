@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Training Module Request</title>
+  <meta name="description" content="How I brief and build an AI-generated security training module in Adaptive Security.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="shell">
+  <nav class="side" aria-label="Pages"></nav>
+  <main class="main">
+    <div class="page">
+      <div class="page-head">
+        <div>
+          <div class="mono">Adaptive Security · training module setup</div>
+          <h1>Training Module Request</h1>
+          <p class="muted">One brief is the single source of truth for a new module. I fill it in once, and every later step uses the same answers: the AI wizard in Adaptive, the design pass in the module editor, and a final review with Claude.</p>
+        </div>
+      </div>
+
+      <section>
+        <h2 style="margin-bottom:14px">How I build a module with AI</h2>
+        <div class="steps">
+          <div class="step"><div class="n">Step 1</div><h3>Brief</h3><p>Fill in this request: topic, audience, length, sources, design and review goals.</p></div>
+          <div class="step"><div class="n">Step 2</div><h3>Generate</h3><p>Paste the brief into Adaptive's “Generate training module” wizard. The AI drafts an outline.</p></div>
+          <div class="step"><div class="n">Step 3</div><h3>Edit &amp; design</h3><p>Refine the outline, then build lessons in the module editor with hospitality scenarios and quizzes.</p></div>
+          <div class="step"><div class="n">Step 4</div><h3>Improve &amp; launch</h3><p>Run a Claude review for clarity and tone, publish, and assign it through a training campaign.</p></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <h2>The Adaptive wizard, driven by this brief</h2>
+            <div class="muted small">A recreation of Adaptive's “Generate training module” screen. It updates live from the form below.</div>
+          </div>
+        </div>
+        <div class="wizard">
+          <div class="wizard-bar"><span><span class="muted">✕</span>&nbsp;&nbsp;<b>Generate training module</b></span><button class="btn" id="genBtn" type="button">Generate outline →</button></div>
+          <div class="wizard-body">
+            <div class="wizard-inner">
+              <h3>What do you want to create?</h3>
+              <div class="outline" id="wzPrompt"></div>
+              <div class="outline small"><b>Files &amp; links</b> <span class="chip" id="wzFilesN"></span><div class="muted" id="wzFiles"></div></div>
+              <div class="opt"><span>Company personalization (OSINT)</span><span class="chip" id="wzOsint"></span></div>
+              <div class="opt"><span>Web search<small>Pull the latest information from the internet</small></span><span class="chip" id="wzWeb"></span></div>
+              <div class="opt"><span>Audience</span><span class="chip" id="wzAud"></span></div>
+              <div class="opt"><span>Module length</span><span class="chip" id="wzLen"></span></div>
+              <div class="outline" id="wzOutline" hidden></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <nav class="req-nav" aria-label="Request sections">
+          <a class="chip" href="#s1">01 · Content</a><a class="chip" href="#s2">02 · Design</a><a class="chip" href="#s3">03 · Claude Improvement</a><a class="chip" href="#preview">Preview</a>
+        </nav>
+        <p class="muted small">Uncheck anything that doesn't apply. The Preview always shows exactly what's included.</p>
+        <div id="form"></div>
+      </section>
+
+      <section class="section" id="preview">
+        <div class="section-head">
+          <div>
+            <h2>Preview: all selected settings</h2>
+            <div class="muted small">Hand this to Claude to drive the wizard, or to a teammate building the module by hand. It maps field for field to the screen.</div>
+          </div>
+          <div class="toolbar"><button class="btn ghost" id="reset" type="button">Reset</button><button class="btn" id="copy" type="button">Copy as Markdown</button></div>
+        </div>
+        <div class="table-wrap"><table class="preview" id="previewTable"></table></div>
+      </section>
+
+      <div class="foot">Luxury Resort Client · IT · Template v1.0</div>
+    </div>
+  </main>
+</div>
+<script src="data.js"></script>
+<script src="app.js"></script>
+<script>
+(function () {
+  const SECTIONS = [
+    { id: 's1', title: '01 · Content', fields: [
+      { k: 'prompt', name: 'Topic prompt', hint: 'What do you want to create?', type: 'textarea',
+        v: 'A training module for luxury resort associates on recognizing and reporting SMS phishing (smishing) that impersonates guests, managers, payroll, and IT.' },
+      { k: 'files', name: 'Files & links', hint: 'Policies that inform the content', type: 'text', v: 'Acceptable Use Policy; Phish Alert Button how-to' },
+      { k: 'osint', name: 'Company personalization (OSINT)', type: 'toggle', v: true },
+      { k: 'web', name: 'Web search', hint: 'Latest threat examples', type: 'toggle', v: true },
+      { k: 'audience', name: 'Audience', hint: 'Optional', type: 'text', v: 'All associates (front-of-house and back-office)' },
+      { k: 'length', name: 'Module length', type: 'select', opts: ['3 min', '5 min', '10 min', '15 min'], v: '5 min' },
+      { k: 'lang', name: 'Language', type: 'select', opts: ['English', 'Spanish', 'English + Spanish'], v: 'English + Spanish' },
+    ]},
+    { id: 's2', title: '02 · Design', fields: [
+      { k: 'layout', name: 'Layout', type: 'select', opts: ['Immersive', 'Classic slides', 'Video + quiz'], v: 'Immersive' },
+      { k: 'brand', name: 'Branding', type: 'text', v: 'Company logo and colors on cover and end screen' },
+      { k: 'scenarios', name: 'Scenarios', hint: 'Where the story happens', type: 'text', v: 'Front desk, concierge, spa booking, payroll text' },
+      { k: 'interactive', name: 'Interactive elements', type: 'select', opts: ['Knowledge-check quiz', 'Spot-the-red-flag simulation', 'Quiz + simulation'], v: 'Quiz + simulation' },
+      { k: 'completion', name: 'Completion mode', type: 'select', opts: ['Timed', 'Self-paced'], v: 'Timed' },
+    ]},
+    { id: 's3', title: '03 · Claude Improvement', fields: [
+      { k: 'goal', name: 'Review goal', type: 'text', v: 'Tighten wording, remove jargon, check every red flag is explained' },
+      { k: 'level', name: 'Reading level', type: 'select', opts: ['Grade 6', 'Grade 8', 'Grade 10'], v: 'Grade 8' },
+      { k: 'tone', name: 'Tone', type: 'select', opts: ['Warm and service-minded', 'Direct', 'Formal'], v: 'Warm and service-minded' },
+      { k: 'a11y', name: 'Accessibility check', hint: 'Alt text, contrast, captions', type: 'toggle', v: true },
+      { k: 'es', name: 'Spanish review', hint: 'Natural, not literal', type: 'toggle', v: true },
+      { k: 'output', name: 'Output', type: 'select', opts: ['Suggested edits', 'Direct rewrite'], v: 'Suggested edits' },
+    ]},
+  ];
+  const all = SECTIONS.flatMap((s) => s.fields);
+  const defaults = JSON.stringify(all.map((f) => [f.k, f.v, true]));
+  const state = {};
+  function load(json) { JSON.parse(json).forEach(([k, v, on]) => (state[k] = { v, on })); }
+  load(store.get('module-request') || defaults);
+  all.forEach((f) => { if (!state[f.k]) state[f.k] = { v: f.v, on: true }; });
+
+  const shown = (f) => (f.type === 'toggle' ? (state[f.k].v ? 'On' : 'Off') : state[f.k].v);
+
+  function control(f) {
+    const v = state[f.k].v, id = 'f-' + f.k;
+    if (f.type === 'textarea') return `<textarea id="${id}" data-k="${f.k}">${esc(v)}</textarea>`;
+    if (f.type === 'select') return `<select id="${id}" data-k="${f.k}">${f.opts.map((o) => `<option${o === v ? ' selected' : ''}>${o}</option>`).join('')}</select>`;
+    if (f.type === 'toggle') return `<label class="switch"><input type="checkbox" id="${id}" data-k="${f.k}"${v ? ' checked' : ''} aria-label="${esc(f.name)}"><span></span></label>`;
+    return `<input class="input" id="${id}" data-k="${f.k}" value="${esc(v)}">`;
+  }
+
+  const form = document.getElementById('form');
+  function renderForm() {
+    form.innerHTML = SECTIONS.map((s) => `
+      <div class="card" id="${s.id}"><h2 style="margin-bottom:6px">${s.title}</h2>
+        ${s.fields.map((f) => `<div class="field${state[f.k].on ? '' : ' off'}">
+          <input type="checkbox" data-inc="${f.k}"${state[f.k].on ? ' checked' : ''} aria-label="Include ${esc(f.name)}">
+          <label class="name" for="f-${f.k}">${f.name}${f.hint ? `<small>${f.hint}</small>` : ''}</label>
+          <div class="control">${control(f)}</div></div>`).join('')}
+      </div>`).join('');
+  }
+
+  function renderOut() {
+    const rows = SECTIONS.flatMap((s) => s.fields.filter((f) => state[f.k].on).map((f) => [s.title.split(' · ')[1], f.name, shown(f)]));
+    document.getElementById('previewTable').innerHTML = `<thead><tr><th>Setting</th><th>Response</th></tr></thead><tbody>${
+      rows.length ? rows.map(([s, n, v]) => `<tr><td>${s} · ${esc(n)}</td><td>${esc(v)}</td></tr>`).join('') : '<tr><td colspan="2" class="muted">Nothing selected.</td></tr>'}</tbody>`;
+
+    const val = (k, off) => (state[k].on ? shown(all.find((f) => f.k === k)) : off);
+    document.getElementById('wzPrompt').textContent = val('prompt', 'A training module about recent cybersecurity risks…');
+    const files = state.files.on && state.files.v ? state.files.v.split(';').map((x) => x.trim()).filter(Boolean) : [];
+    document.getElementById('wzFilesN').textContent = `${files.length} added`;
+    document.getElementById('wzFiles').textContent = files.join(' · ') || 'Add documents like policy documents and links.';
+    document.getElementById('wzOsint').textContent = val('osint', 'Off');
+    document.getElementById('wzWeb').textContent = val('web', 'Off');
+    document.getElementById('wzAud').textContent = val('audience', '—') || '—';
+    document.getElementById('wzLen').textContent = val('length', '5 min');
+    store.set('module-request', JSON.stringify(all.map((f) => [f.k, state[f.k].v, state[f.k].on])));
+  }
+
+  form.addEventListener('input', (e) => {
+    const t = e.target;
+    if (t.dataset.inc) {
+      state[t.dataset.inc].on = t.checked;
+      t.closest('.field').classList.toggle('off', !t.checked);
+    } else if (t.dataset.k) {
+      state[t.dataset.k].v = t.type === 'checkbox' ? t.checked : t.value;
+    }
+    renderOut();
+    document.getElementById('wzOutline').hidden = true;
+  });
+
+  // Illustrative outline: shows the shape of what the wizard returns for this brief.
+  document.getElementById('genBtn').addEventListener('click', () => {
+    const scen = (state.scenarios.on ? state.scenarios.v : 'the workplace').split(',').map((x) => x.trim()).filter(Boolean);
+    const lessons = [
+      ['Why attackers text hotel staff', 'Real smishing trends, from web search'],
+      ...scen.slice(0, 3).map((s) => [`Scenario: ${s}`, 'Spot the red flags in a realistic message']),
+      ['Report it in one tap', 'Phish Alert Button and who to call'],
+      [state.interactive.on ? state.interactive.v : 'Knowledge check', 'Must pass to complete'],
+    ];
+    const box = document.getElementById('wzOutline');
+    box.innerHTML = `<b>Draft outline</b> <span class="chip">${esc(state.length.v)} · ${esc(state.lang.on ? state.lang.v : 'English')}</span>
+      <ol>${lessons.map(([t, d]) => `<li>${esc(t)}<br><small>${esc(d)}</small></li>`).join('')}</ol>
+      <div class="muted small">Example of the outline shape. Adaptive's AI writes the real one, which I then edit in the module editor.</div>`;
+    box.hidden = false;
+  });
+
+  document.getElementById('reset').addEventListener('click', () => { load(defaults); renderForm(); renderOut(); });
+  document.getElementById('copy').addEventListener('click', async (e) => {
+    const md = ['| Setting | Response |', '| --- | --- |', ...[...document.querySelectorAll('#previewTable tbody tr')]
+      .map((tr) => `| ${[...tr.cells].map((c) => c.textContent.replace(/\|/g, '\\|')).join(' | ')} |`)].join('\n');
+    try { await navigator.clipboard.writeText(md); e.target.textContent = 'Copied ✓'; }
+    catch (err) { e.target.textContent = 'Copy blocked by browser'; }
+    setTimeout(() => (e.target.textContent = 'Copy as Markdown'), 1800);
+  });
+
+  renderForm();
+  renderOut();
+})();
+</script>
+</body>
+</html>
