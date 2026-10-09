@@ -27,9 +27,23 @@ No installs needed.
 
 Live at https://happy-glacier-0058ab310.5.azurestaticapps.net. The Static Web App `adaptive-portfolio` (plan **Free**, resource group `adaptive-portfolio_group`) is linked to this repo through the Azure portal. Azure added its own workflow under `.github/workflows/` and the deployment-token secret, with `app_location: adaptive/site`. It runs only when files under `adaptive/` change, and the Sitecore workflow ignores `adaptive/**`.
 
-### Access: invited viewers only
+### Access
 
-`staticwebapp.config.json` requires the `viewer` role on every page. Anyone else lands on `login.html`, which offers Microsoft or GitHub sign-in. To give someone access:
+Currently **public** (anyone with the URL; `noindex` keeps it out of search). To make it invite-only again, add these to `staticwebapp.config.json` (`login.html` is already in place):
+
+```json
+"routes": [
+  { "route": "/login.html", "allowedRoles": ["anonymous", "authenticated"] },
+  { "route": "/.auth/*", "allowedRoles": ["anonymous", "authenticated"] },
+  { "route": "/*", "allowedRoles": ["viewer"] }
+],
+"responseOverrides": {
+  "401": { "redirect": "/login.html", "statusCode": 302 },
+  "403": { "redirect": "/login.html?denied=1", "statusCode": 302 }
+}
+```
+
+Then give each person access:
 
 1. Azure portal → `adaptive-portfolio` → **Role management** → **Invite**.
 2. Choose the provider (Azure Active Directory works for any Microsoft account, including Outlook and Gmail-linked ones; GitHub uses their username), enter their email or username, set the role to `viewer`, and set an expiration of up to 168 hours.

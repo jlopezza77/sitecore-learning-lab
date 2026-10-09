@@ -1,13 +1,4 @@
 {
-  "routes": [
-    { "route": "/login.html", "allowedRoles": ["anonymous", "authenticated"] },
-    { "route": "/.auth/*", "allowedRoles": ["anonymous", "authenticated"] },
-    { "route": "/*", "allowedRoles": ["viewer"] }
-  ],
-  "responseOverrides": {
-    "401": { "redirect": "/login.html", "statusCode": 302 },
-    "403": { "redirect": "/login.html?denied=1", "statusCode": 302 }
-  },
   "navigationFallback": { "rewrite": "/index.html", "exclude": ["/*.{css,js,json,svg,png}"] },
   "globalHeaders": {
     "X-Robots-Tag": "noindex, nofollow",
