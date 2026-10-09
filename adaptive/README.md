@@ -27,7 +27,15 @@ No installs needed.
 
 Live at https://happy-glacier-0058ab310.5.azurestaticapps.net. The Static Web App `adaptive-portfolio` (plan **Free**, resource group `adaptive-portfolio_group`) is linked to this repo through the Azure portal. Azure added its own workflow under `.github/workflows/` and the deployment-token secret, with `app_location: adaptive/site`. It runs only when files under `adaptive/` change, and the Sitecore workflow ignores `adaptive/**`.
 
-The site sends `X-Robots-Tag: noindex` so search engines don't list it. It is still reachable by anyone with the URL. To restrict it, Static Web Apps lets you invite specific users and limit routes to an `authenticated` role (see `staticwebapp.config.json` docs).
+### Access: invited viewers only
+
+`staticwebapp.config.json` requires the `viewer` role on every page. Anyone else lands on `login.html`, which offers Microsoft or GitHub sign-in. To give someone access:
+
+1. Azure portal → `adaptive-portfolio` → **Role management** → **Invite**.
+2. Choose the provider (Azure Active Directory works for any Microsoft account, including Outlook and Gmail-linked ones; GitHub uses their username), enter their email or username, set the role to `viewer`, and set an expiration of up to 168 hours.
+3. **Generate**, copy the invite link, and send it. They open it and sign in once. After that they can use the normal URL.
+
+Remove access in the same screen (select the user → Delete). The Free plan allows up to 25 invited users. Pages also send `X-Robots-Tag: noindex`.
 
 ## Before sharing
 

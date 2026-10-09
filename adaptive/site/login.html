@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Private Portfolio</title>
+  <style>
+    :root { color-scheme: light; --bg: #f6f6f4; --surface: #fff; --border: #e6e5e1; --text: #0b0b0b; --text-2: #52514e; --accent: #111; --accent-ink: #fff; }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) { color-scheme: dark; --bg: #121211; --surface: #1a1a19; --border: #2e2e2c; --text: #fff; --text-2: #c3c2b7; --accent: #fff; --accent-ink: #111; }
+    }
+    :root[data-theme="dark"] { color-scheme: dark; --bg: #121211; --surface: #1a1a19; --border: #2e2e2c; --text: #fff; --text-2: #c3c2b7; --accent: #fff; --accent-ink: #111; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 16px; background: var(--bg); color: var(--text); font: 15px/1.5 Inter, system-ui, -apple-system, "Segoe UI", sans-serif; }
+    .box { width: 100%; max-width: 380px; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 32px 28px; text-align: center; }
+    .mark { width: 32px; height: 32px; border-radius: 8px; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; margin: 0 auto 16px; }
+    h1 { font-size: 20px; margin: 0 0 6px; }
+    p { color: var(--text-2); margin: 0 0 20px; font-size: 14px; }
+    a.btn { display: block; padding: 10px 14px; border-radius: 8px; text-decoration: none; font-weight: 500; margin-top: 10px; border: 1px solid var(--border); color: var(--text); }
+    a.btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+    .denied { display: none; background: #fdf0e8; color: #8a2f07; border-radius: 8px; padding: 10px 12px; font-size: 13px; margin-bottom: 16px; text-align: left; }
+    @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .denied { background: #3a2519; color: #f6c2a2; } }
+    :root[data-theme="dark"] .denied { background: #3a2519; color: #f6c2a2; }
+  </style>
+</head>
+<body>
+  <main class="box">
+    <div class="mark" aria-hidden="true">◆</div>
+    <h1>Private portfolio</h1>
+    <p>This security awareness portfolio is shared by invitation only. Sign in with the account your invitation was sent to.</p>
+    <div class="denied" id="denied">You're signed in, but this account hasn't been invited yet. Open your invitation link first, or sign out and use the invited account.</div>
+    <a class="btn primary" href="/.auth/login/aad?post_login_redirect_uri=/">Sign in with Microsoft</a>
+    <a class="btn" href="/.auth/login/github?post_login_redirect_uri=/">Sign in with GitHub</a>
+    <a class="btn" id="logout" href="/.auth/logout?post_logout_redirect_uri=/login.html" hidden>Sign out</a>
+  </main>
+  <script>
+    if (new URLSearchParams(location.search).has('denied')) {
+      document.getElementById('denied').style.display = 'block';
+      document.getElementById('logout').hidden = false;
+    }
+  </script>
+</body>
+</html>
