@@ -25,7 +25,7 @@ No installs needed.
 
 ## Deploy to Azure (Free plan, $0)
 
-The Static Web App `adaptive-portfolio` (plan **Free**) is linked to this repo through the Azure portal. Azure added its own workflow under `.github/workflows/` and the deployment-token secret, with `app_location: adaptive/site`. It runs only when files under `adaptive/` change, and the Sitecore workflow ignores `adaptive/**`.
+Live at https://happy-glacier-0058ab310.5.azurestaticapps.net. The Static Web App `adaptive-portfolio` (plan **Free**, resource group `adaptive-portfolio_group`) is linked to this repo through the Azure portal. Azure added its own workflow under `.github/workflows/` and the deployment-token secret, with `app_location: adaptive/site`. It runs only when files under `adaptive/` change, and the Sitecore workflow ignores `adaptive/**`.
 
 The site sends `X-Robots-Tag: noindex` so search engines don't list it. It is still reachable by anyone with the URL. To restrict it, Static Web Apps lets you invite specific users and limit routes to an `authenticated` role (see `staticwebapp.config.json` docs).
 
