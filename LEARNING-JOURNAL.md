@@ -28,7 +28,25 @@ Goal: understand cross-channel digital marketing hands-on, the way SitecoreAI de
 - [ ] Add Azure OpenAI to generate localized offer copy (≈ Sitecore Stream / Agentic Studio)
 - [ ] Practice the 10-minute demo in English and Spanish
 
-## Day 2 – 
+## Day 2 – 2026-10-15: React + Next.js, lesson 1
+**Researched**
+- SitecoreAI front-ends are built with Next.js (React) through Sitecore's SDK (formerly JSS, now Content SDK).
+
+**Built**
+- `web/`: Next.js 16 + React 19 + TypeScript version of the bank, side by side with the original.
+- Components: `Header`, `Hero`, `ProductCard`, `TrustSection`; same content JSON as the original site.
+- Static export published at `/next/` of the same Azure Static Web App (shares the API).
+
+**Learned**
+- A component is a function that returns JSX; props are its parameters.
+- Same component + different props = different result (the core idea of React).
+- In Sitecore, developers build components and marketing assembles pages with them; props = fields marketing fills in.
+
+**Next**
+- [ ] Lesson 1 exercise: `Footer` component + optional `badge` prop
+- [ ] Lesson 2: state and events (`useState`)
+
+## Day 3 – 
 **Researched**
 
 **Built**

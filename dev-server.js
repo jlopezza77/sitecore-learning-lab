@@ -29,7 +29,8 @@ http
       res.writeHead(result.status, { 'Content-Type': 'application/json' });
       return res.end(JSON.stringify(result.body));
     }
-    const file = path.join(SITE, url.pathname === '/' ? 'index.html' : url.pathname);
+    // Folders (like /next/) serve their index.html, as Azure Static Web Apps does.
+    const file = path.join(SITE, url.pathname.endsWith('/') ? `${url.pathname}index.html` : url.pathname);
     if (!file.startsWith(SITE) || !fs.existsSync(file)) {
       res.writeHead(404);
       return res.end('Not found');

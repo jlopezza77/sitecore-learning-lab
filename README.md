@@ -4,6 +4,7 @@ A beginner-friendly, free hands-on lab built by JJ Lopez to learn the concepts b
 
 - Concept map to SitecoreAI: [docs/sitecore-mapping.md](docs/sitecore-mapping.md)
 - What I learned each day: [LEARNING-JOURNAL.md](LEARNING-JOURNAL.md)
+- **React + Next.js version** (in progress, lesson by lesson): [`web/`](web/) · live at [/next/](https://proud-mud-0dc4d820f.2.azurestaticapps.net/next/) · lessons in [docs/nextjs/](docs/nextjs/)
 
 ## Run it locally (no installs besides Node)
 
